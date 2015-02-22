@@ -20,4 +20,14 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+#===================== Models ==================#
+activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            registration_email:
+              blank: "Email Can't Be Empty"
+            password:
+              blank: "Password Can't Be Empty"
+#===================== Models ==================#
