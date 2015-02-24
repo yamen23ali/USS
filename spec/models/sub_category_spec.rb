@@ -1,5 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe SubCategory, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe SubCategory do
+  
+  it "Belongs To Category" do
+    cat=create(:category)
+    sub_cat=create(:sub_category , category: cat)
+    expect(cat.name).to eq(sub_cat.category.name)
+  end
+
 end

@@ -1,5 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe OfferAsset, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe OfferAsset do
+  it "test" do
+    o=create(:offer)
+binding.pry
+  end
+
 end
