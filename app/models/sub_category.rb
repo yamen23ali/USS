@@ -4,7 +4,7 @@ class SubCategory < ActiveRecord::Base
   has_many :asset
 
   validates :name, :presence => true
-  validates :category_id, :presence => true
+  validates :category , :presence => true
 
   before_save :default_values
 
