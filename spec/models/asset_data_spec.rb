@@ -1,5 +1,17 @@
 require 'rails_helper'
 
-RSpec.describe AssetData, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe AssetData do
+  
+  it "Validates Asset presence" do
+    validate_presence_of(:asset_id)
+  end
+
+  it "Belongs to asset" do
+  	belong_to(:asset)
+  end
+
+  it "Belongs to meta data" do
+    belong_to(:meta_data)
+  end
+  
 end

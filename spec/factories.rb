@@ -2,7 +2,6 @@ FactoryGirl.define do
   
   factory :category do
     sequence(:name){|n| "Category #{n}"}
-    active true
   end
 
   factory :status do
@@ -20,7 +19,6 @@ FactoryGirl.define do
 
   factory :meta_data do
     sequence(:name){|n| "Meta Data #{n}"}
-    active true
   end
 
   factory :sub_category do
@@ -31,7 +29,6 @@ FactoryGirl.define do
   factory :user do
   	sequence(:registration_email){|n| "johnDue#{n}@example.com"}
   	sequence(:password){|n| "password#{n}"}
-  	account
   	sequence(:first_name){|n| "Jhon#{n}"}
   	sequence(:last_name){|n| "Due#{n}"}
   	sequence(:address){|n| "Street #{n}"}

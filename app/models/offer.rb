@@ -5,7 +5,7 @@ class Offer < ActiveRecord::Base
   has_many :offer_asset
   has_many :asset , :through => :offer_asset
 
-  validates :from_id, :presence => true
-  validates :to_id, :presence => true
-  validates :status_id, :presence => true
+  validates :from , :presence => true
+  validates :to , :presence => true
+  validates :status , :presence => true
 end

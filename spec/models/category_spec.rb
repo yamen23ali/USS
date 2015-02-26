@@ -1,5 +1,22 @@
 require 'rails_helper'
 
-RSpec.describe Category, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Category do
+  
+  it "Validates presence of name" do
+    validate_presence_of(:name)
+  end
+
+  it "Has many Assets" do
+    have_many(:asset)
+  end
+
+  it "Has many Sub Categories" do
+    have_many(:sub_category)
+  end
+
+  it "Is Active by default" do
+  	category=create(:category)
+  	expect(category.active).to eq(true)
+  end
+
 end
