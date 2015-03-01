@@ -1,15 +1,15 @@
 class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable ,:confirmable ,:lockable
   
   belongs_to :account
   has_many :asset
   has_many :review
   has_many :offer
-  
-  validates :registration_email, :presence => true
-  validates :password, :presence => true
 
   before_save :default_values
-  
 
   def default_values
     self.account_id ||= 1
