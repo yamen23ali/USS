@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe User do
   
-  it "Validates presence of registration email" do
-    validate_presence_of(:registration_email)
+  it "Validates presence of email" do
+    validate_presence_of(:email)
   end
 
   it "Validates presence of password" do

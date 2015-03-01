@@ -27,7 +27,7 @@ FactoryGirl.define do
   end
 
   factory :user do
-  	sequence(:registration_email){|n| "johnDue#{n}@example.com"}
+  	sequence(:email){|n| "johnDue#{n}@example.com"}
   	sequence(:password){|n| "password#{n}"}
   	sequence(:first_name){|n| "Jhon#{n}"}
   	sequence(:last_name){|n| "Due#{n}"}
