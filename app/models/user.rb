@@ -15,4 +15,12 @@ class User < ActiveRecord::Base
     self.account_id ||= 1
   end
 
+  def role
+    self.account.name.underscore.to_sym
+  end
+
+  def is_admin?
+     role==:admin ? true :false 
+  end
+
 end
