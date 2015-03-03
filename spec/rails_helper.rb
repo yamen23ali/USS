@@ -67,4 +67,7 @@ RSpec.configure do |config|
 
   # Include Spec Helpers
   config.include UserSignInHelper
+
+  # Include Devise test helpers
+  config.include Devise::TestHelpers, type: :controller
 end
