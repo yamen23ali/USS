@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
   
   before_action :authenticate_user!
-  load_and_authorize_resource
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_filter :cancan_hack
+  load_and_authorize_resource
+
 
 
   # GET /users
@@ -18,7 +20,7 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new
+   @user = User.new
   end
 
   # GET /users/1/edit
@@ -28,6 +30,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    binding.pry
     @user = User.new(user_params)
 
     respond_to do |format|
@@ -76,4 +79,12 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:first_name, :last_name, :tel, :mobile, :address, :contact_email, :facebook, :twitter, :instagram, :photo)
     end
+
+  def cancan_hack
+    return if request.get?
+    resource = controller_name.singularize.to_sym
+    method = "#{resource}_params"
+    params[resource] &&= send(method) if respond_to?(method, true)
+  end
+
 end
