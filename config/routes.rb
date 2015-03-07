@@ -4,10 +4,9 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :users do
+  resources :users  , except: [ :create , :new ] do
     collection do
       get 'index'
-      post 'index' => 'users#create'
     end
   end
 

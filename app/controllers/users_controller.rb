@@ -2,10 +2,9 @@ class UsersController < ApplicationController
   
   before_action :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_filter :cancan_hack
   load_and_authorize_resource
 
-
+  respond_to :html, :xml, :json
 
   # GET /users
   # GET /users.json
@@ -18,43 +17,18 @@ class UsersController < ApplicationController
   def show
   end
 
-  # GET /users/new
-  def new
-   @user = User.new
-  end
-
   # GET /users/1/edit
   def edit
-  end
-
-  # POST /users
-  # POST /users.json
-  def create
-    binding.pry
-    @user = User.new(user_params)
-
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    #binding.pry
+    if @user.update(user_params)
+      respond_with @user, notice: 'User was successfully updated.'
+    else
+      render :edit 
     end
   end
 
@@ -62,10 +36,7 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to users_url, notice: 'User was successfully destroyed.' 
   end
 
   private
@@ -79,12 +50,5 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:first_name, :last_name, :tel, :mobile, :address, :contact_email, :facebook, :twitter, :instagram, :photo)
     end
-
-  def cancan_hack
-    return if request.get?
-    resource = controller_name.singularize.to_sym
-    method = "#{resource}_params"
-    params[resource] &&= send(method) if respond_to?(method, true)
-  end
 
 end
