@@ -29,6 +29,7 @@ gem 'cancan'
 
 # Validtes email
 gem 'validates_email_format_of'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -50,7 +51,7 @@ group :development, :test do
   gem 'spring'
   gem 'shoulda'
   gem 'shoulda-matchers'
-  #gem 'mailcatcher'
+  gem 'capybara'
 end
 
 group :development do
