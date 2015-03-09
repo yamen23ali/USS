@@ -19,16 +19,22 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe UsersController, :type => :controller do
+  include UserSignInHelper
+
+  let(:admin_account) {create(:account , id: 1 , name: 'Admin')}
+  let(:customer_account) {create(:account , id: 2 , name: 'Customer')}
+  let(:admin) { create(:user , account: admin_account)}
+  let(:customer) { create(:user , account: customer_account)}
 
   # This should return the minimal set of attributes required to create a valid
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {first_name: "Test" , last_name: "Test"}
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {first_name: "Test" , last_name: "Test" , email: "yamen@gmail.com"}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -36,124 +42,120 @@ RSpec.describe UsersController, :type => :controller do
   # UsersController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET index" do
-    it "assigns all users as @users" do
-      user = User.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns(:users)).to eq([user])
-    end
-  end
+  context "When Administartor" do
 
-  describe "GET show" do
-    it "assigns the requested user as @user" do
-      user = User.create! valid_attributes
-      get :show, {:id => user.to_param}, valid_session
-      expect(assigns(:user)).to eq(user)
-    end
-  end
+    before (:each) { sign_in_as_a_valid_user(admin) }
 
-  describe "GET new" do
-    it "assigns a new user as @user" do
-      get :new, {}, valid_session
-      expect(assigns(:user)).to be_a_new(User)
-    end
-  end
+    context "GET index" do
 
-  describe "GET edit" do
-    it "assigns the requested user as @user" do
-      user = User.create! valid_attributes
-      get :edit, {:id => user.to_param}, valid_session
-      expect(assigns(:user)).to eq(user)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new User" do
-        expect {
-          post :create, {:user => valid_attributes}, valid_session
-        }.to change(User, :count).by(1)
+      it "gets all users" do
+        get :index
+        expect(assigns(:users)).to eq([admin])
       end
 
-      it "assigns a newly created user as @user" do
-        post :create, {:user => valid_attributes}, valid_session
-        expect(assigns(:user)).to be_a(User)
-        expect(assigns(:user)).to be_persisted
-      end
-
-      it "redirects to the created user" do
-        post :create, {:user => valid_attributes}, valid_session
-        expect(response).to redirect_to(User.last)
-      end
     end
 
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved user as @user" do
-        post :create, {:user => invalid_attributes}, valid_session
-        expect(assigns(:user)).to be_a_new(User)
+    context "GET show" do
+
+      it "gets any user" do
+        get :show, {:id => customer.id}
+        expect(assigns(:user)).to eq(customer)
       end
 
-      it "re-renders the 'new' template" do
-        post :create, {:user => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
-      end
     end
-  end
 
-  describe "PUT update" do
-    describe "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested user" do
-        user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => new_attributes}, valid_session
-        user.reload
-        skip("Add assertions for updated state")
-      end
+    context "GET edit" do
 
       it "assigns the requested user as @user" do
-        user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
-        expect(assigns(:user)).to eq(user)
+        get :edit, {:id => customer.id}
+        expect(assigns(:user)).to eq(customer)
       end
 
-      it "redirects to the user" do
-        user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
-        expect(response).to redirect_to(user)
-      end
     end
 
-    describe "with invalid params" do
-      it "assigns the user as @user" do
-        user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => invalid_attributes}, valid_session
-        expect(assigns(:user)).to eq(user)
-      end
-
-      it "re-renders the 'edit' template" do
-        user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
-      end
-    end
   end
 
-  describe "DELETE destroy" do
-    it "destroys the requested user" do
-      user = User.create! valid_attributes
-      expect {
-        delete :destroy, {:id => user.to_param}, valid_session
-      }.to change(User, :count).by(-1)
+  context "When Any User" do
+
+    before (:each) { sign_in_as_a_valid_user(customer) }
+    
+    context "GET index" do
+
+      it "gets nothing" do
+        get :index
+        expect(assigns(:users)).to eq([])
+      end
+
     end
 
-    it "redirects to the users list" do
-      user = User.create! valid_attributes
-      delete :destroy, {:id => user.to_param}, valid_session
-      expect(response).to redirect_to(users_url)
+    context "GET show" do
+
+      it "gets his user" do
+        get :show, {:id => admin.id}
+        expect(assigns(:user)).to eq(customer)
+      end
+
+      it "cann't get another user" do
+        get :show, {:id => customer.id}
+        expect(assigns(:user)).to eq(customer)
+      end
+
     end
+
+    context "GET edit" do
+
+      it "assigns his user as @user " do
+        get :edit, {:id => customer.id}
+        expect(assigns(:user)).to eq(customer)
+      end
+
+      it "cann't assigns another user as @user " do
+        get :edit, {:id => admin.id}
+        expect(assigns(:user)).to eq(customer)
+      end
+    
+    end
+
+    describe "PUT update" do
+    
+      describe "with valid params" do
+        let(:new_valid_attributes) { {first_name: "new name"} }
+
+        it "updates the requested user" do
+          put :update, {:id => customer.id, :user => new_valid_attributes}
+          customer.reload
+          expect(customer.first_name).to eq("new name")
+        end
+
+        it "assigns the requested user as @user" do
+          put :update, {:id => customer.id, :user => new_valid_attributes}
+          expect(assigns(:user)).to eq(customer)
+        end
+
+        it "redirects to the user" do
+          put :update, {:id => customer.id, :user => new_valid_attributes}
+          expect(response).to redirect_to(customer)
+        end
+
+      end
+
+      describe "with invalid params" do
+        let(:new_invalid_attributes) { {contact_email: "whatever"} }
+
+        it "assigns the user as @user" do
+          put :update, {:id => customer.to_param, :user => new_invalid_attributes}
+          expect(assigns(:user)).to eq(customer)
+        end
+
+        it "re-renders the 'edit' template" do
+          put :update, {:id => customer.to_param, :user => new_invalid_attributes}
+          expect(response).to render_template("edit")
+        end
+      end
+
+    end
+
+
   end
-
+   
 end

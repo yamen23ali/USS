@@ -27,9 +27,9 @@ describe User do
   end
 
   it "Has account ( 1 ) as default Account " do
-    account=create(:account,id:1,name: "Test account")
+    account = create(:account, id: 2)
     user=create(:user)
-    expect(user.account.id).to eq(1)
+    expect(user.account.id).to eq(2)
   end
   
 end
