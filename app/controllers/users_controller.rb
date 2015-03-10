@@ -24,7 +24,6 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    #binding.pry
     if @user.update(user_params)
       respond_with @user, notice: 'User was successfully updated.'
     else
