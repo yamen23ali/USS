@@ -26,3 +26,8 @@ Things you may want to cover:
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
+
+
+Code Status :
+
+{<img src="https://codeclimate.com/repos/54ffdf28e30ba07b210021f6/badges/7c9baa5c56108dc2be6a/gpa.svg" />}[https://codeclimate.com/repos/54ffdf28e30ba07b210021f6/feed]
