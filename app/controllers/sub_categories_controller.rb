@@ -1,6 +1,10 @@
 class SubCategoriesController < ApplicationController
 
+  before_action :authenticate_user!
   before_action :set_sub_category, only: [:show, :edit, :update, :destroy]
+  
+  load_and_authorize_resource
+
   respond_to :html , :json , :xml
 
   # GET /sub_categories

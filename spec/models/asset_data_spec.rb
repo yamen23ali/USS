@@ -10,8 +10,8 @@ describe AssetData do
   	belong_to(:asset)
   end
 
-  it "Belongs to meta data" do
-    belong_to(:meta_data)
+  it "Belongs to descriptor" do
+    belong_to(:descriptor)
   end
   
 end

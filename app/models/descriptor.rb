@@ -1,4 +1,4 @@
-class MetaData < ActiveRecord::Base
+class Descriptor < ActiveRecord::Base
 
   has_many :asset_data
 

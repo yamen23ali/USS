@@ -1,6 +1,7 @@
+
 require 'rails_helper'
 
-describe MetaData do
+describe Descriptor do
   
   it "Validates presence of name" do
     validate_presence_of(:name)
@@ -11,7 +12,7 @@ describe MetaData do
   end
 
   it "Is Active by default" do
-    meta_data=create(:meta_data)
-    expect(meta_data.active).to eq(true)
+    descriptor=create(:descriptor)
+    expect(descriptor.active).to eq(true)
   end
 end

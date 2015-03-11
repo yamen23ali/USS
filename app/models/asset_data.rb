@@ -1,6 +1,6 @@
 class AssetData < ActiveRecord::Base
   belongs_to :asset
-  belongs_to :meta_data
+  belongs_to :descriptor
 
   validates :asset , :presence => true
 
