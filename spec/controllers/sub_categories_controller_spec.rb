@@ -20,49 +20,48 @@ require 'rails_helper'
 
 RSpec.describe SubCategoriesController, :type => :controller do
 
+  let(:admin_account) {create(:account , id: 1 , name: 'Admin')}
+  let(:admin) { create(:user , account: admin_account)}
+  let(:category) { create(:category)}
+  let(:sub_category) { create(:sub_category , category: category)}
   # This should return the minimal set of attributes required to create a valid
   # SubCategory. As you add validations to SubCategory, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  let(:valid_attributes) { { name: "test sub category" , category_id: category.id } }
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_attributes) { { name: "" }}
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # SubCategoriesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
+  before (:each) { sign_in_as_a_valid_user(admin) }
+
   describe "GET index" do
-    it "assigns all sub_categories as @sub_categories" do
-      sub_category = SubCategory.create! valid_attributes
-      get :index, {}, valid_session
+    it "gets all sub_categories" do
+      get :index, {}
       expect(assigns(:sub_categories)).to eq([sub_category])
     end
   end
 
   describe "GET show" do
-    it "assigns the requested sub_category as @sub_category" do
-      sub_category = SubCategory.create! valid_attributes
-      get :show, {:id => sub_category.to_param}, valid_session
+    it "gets the requested sub_category" do
+      get :show, {:id => sub_category.to_param}
       expect(assigns(:sub_category)).to eq(sub_category)
     end
   end
 
   describe "GET new" do
     it "assigns a new sub_category as @sub_category" do
-      get :new, {}, valid_session
+      get :new, {}
       expect(assigns(:sub_category)).to be_a_new(SubCategory)
     end
   end
 
   describe "GET edit" do
-    it "assigns the requested sub_category as @sub_category" do
-      sub_category = SubCategory.create! valid_attributes
-      get :edit, {:id => sub_category.to_param}, valid_session
+    it "edits the requested sub_category" do
+      get :edit, {:id => sub_category.to_param}
       expect(assigns(:sub_category)).to eq(sub_category)
     end
   end
@@ -71,30 +70,30 @@ RSpec.describe SubCategoriesController, :type => :controller do
     describe "with valid params" do
       it "creates a new SubCategory" do
         expect {
-          post :create, {:sub_category => valid_attributes}, valid_session
+          post :create, {:sub_category => valid_attributes}
         }.to change(SubCategory, :count).by(1)
       end
 
       it "assigns a newly created sub_category as @sub_category" do
-        post :create, {:sub_category => valid_attributes}, valid_session
+        post :create, {:sub_category => valid_attributes}
         expect(assigns(:sub_category)).to be_a(SubCategory)
         expect(assigns(:sub_category)).to be_persisted
       end
 
       it "redirects to the created sub_category" do
-        post :create, {:sub_category => valid_attributes}, valid_session
+        post :create, {:sub_category => valid_attributes}
         expect(response).to redirect_to(SubCategory.last)
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved sub_category as @sub_category" do
-        post :create, {:sub_category => invalid_attributes}, valid_session
+        post :create, {:sub_category => invalid_attributes}
         expect(assigns(:sub_category)).to be_a_new(SubCategory)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:sub_category => invalid_attributes}, valid_session
+        post :create, {:sub_category => invalid_attributes}
         expect(response).to render_template("new")
       end
     end
@@ -102,40 +101,38 @@ RSpec.describe SubCategoriesController, :type => :controller do
 
   describe "PUT update" do
     describe "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+      let(:new_attributes) { { name: "test new sub category"}}
 
       it "updates the requested sub_category" do
-        sub_category = SubCategory.create! valid_attributes
-        put :update, {:id => sub_category.to_param, :sub_category => new_attributes}, valid_session
+        sub_category = create(:sub_category)
+        put :update, {:id => sub_category.to_param, :sub_category => new_attributes}
         sub_category.reload
-        skip("Add assertions for updated state")
+        expect(sub_category.name).to eq("test new sub category")
       end
 
       it "assigns the requested sub_category as @sub_category" do
-        sub_category = SubCategory.create! valid_attributes
-        put :update, {:id => sub_category.to_param, :sub_category => valid_attributes}, valid_session
+        sub_category = create(:sub_category)
+        put :update, {:id => sub_category.to_param, :sub_category => valid_attributes}
         expect(assigns(:sub_category)).to eq(sub_category)
       end
 
       it "redirects to the sub_category" do
-        sub_category = SubCategory.create! valid_attributes
-        put :update, {:id => sub_category.to_param, :sub_category => valid_attributes}, valid_session
+        sub_category = create(:sub_category)
+        put :update, {:id => sub_category.to_param, :sub_category => valid_attributes}
         expect(response).to redirect_to(sub_category)
       end
     end
 
     describe "with invalid params" do
       it "assigns the sub_category as @sub_category" do
-        sub_category = SubCategory.create! valid_attributes
-        put :update, {:id => sub_category.to_param, :sub_category => invalid_attributes}, valid_session
+        sub_category = create(:sub_category)
+        put :update, {:id => sub_category.to_param, :sub_category => invalid_attributes}
         expect(assigns(:sub_category)).to eq(sub_category)
       end
 
       it "re-renders the 'edit' template" do
-        sub_category = SubCategory.create! valid_attributes
-        put :update, {:id => sub_category.to_param, :sub_category => invalid_attributes}, valid_session
+        sub_category = create(:sub_category)
+        put :update, {:id => sub_category.to_param, :sub_category => invalid_attributes}
         expect(response).to render_template("edit")
       end
     end
@@ -143,14 +140,14 @@ RSpec.describe SubCategoriesController, :type => :controller do
 
   describe "DELETE destroy" do
     it "destroys the requested sub_category" do
-      sub_category = SubCategory.create! valid_attributes
+      sub_category = create(:sub_category)
       expect {
         delete :destroy, {:id => sub_category.to_param}, valid_session
       }.to change(SubCategory, :count).by(-1)
     end
 
     it "redirects to the sub_categories list" do
-      sub_category = SubCategory.create! valid_attributes
+      sub_category = create(:sub_category)
       delete :destroy, {:id => sub_category.to_param}, valid_session
       expect(response).to redirect_to(sub_categories_url)
     end

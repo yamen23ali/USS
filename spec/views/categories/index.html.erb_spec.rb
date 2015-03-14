@@ -2,16 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "categories/index", :type => :view do
   before(:each) do
-    assign(:categories, [
-      Category.create!(
-        :name => "Name",
-        :active => false
-      ),
-      Category.create!(
-        :name => "Name",
-        :active => false
-      )
-    ])
+    @categories = [ create(:category , name: "Name" , active: false) , 
+                    create(:category , name: "Name" , active: false)
+                  ]
   end
 
   it "renders a list of categories" do

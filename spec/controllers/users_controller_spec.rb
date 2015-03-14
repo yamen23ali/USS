@@ -19,7 +19,6 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe UsersController, :type => :controller do
-  include UserSignInHelper
 
   let(:admin_account) {create(:account , id: 1 , name: 'Admin')}
   let(:customer_account) {create(:account , id: 2 , name: 'Customer')}
@@ -29,13 +28,9 @@ RSpec.describe UsersController, :type => :controller do
   # This should return the minimal set of attributes required to create a valid
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    {first_name: "Test" , last_name: "Test"}
-  }
+  let(:valid_attributes) { {first_name: "Test" , last_name: "Test"} }
 
-  let(:invalid_attributes) {
-    {first_name: "Test" , last_name: "Test" , email: "yamen@gmail.com"}
-  }
+  let(:invalid_attributes) { {first_name: "Test" , last_name: "Test" , email: "yamen@gmail.com"} }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -47,30 +42,24 @@ RSpec.describe UsersController, :type => :controller do
     before (:each) { sign_in_as_a_valid_user(admin) }
 
     context "GET index" do
-
       it "gets all users" do
         get :index
         expect(assigns(:users)).to eq([admin])
       end
-
     end
 
     context "GET show" do
-
-      it "gets any user" do
+      it "gets the requested user" do
         get :show, {:id => customer.id}
         expect(assigns(:user)).to eq(customer)
       end
-
     end
 
     context "GET edit" do
-
       it "assigns the requested user as @user" do
         get :edit, {:id => customer.id}
         expect(assigns(:user)).to eq(customer)
       end
-
     end
 
   end
@@ -80,16 +69,13 @@ RSpec.describe UsersController, :type => :controller do
     before (:each) { sign_in_as_a_valid_user(customer) }
     
     context "GET index" do
-
       it "gets nothing" do
         get :index
         expect(assigns(:users)).to eq([])
       end
-
     end
 
     context "GET show" do
-
       it "gets his user" do
         get :show, {:id => admin.id}
         expect(assigns(:user)).to eq(customer)
@@ -99,11 +85,9 @@ RSpec.describe UsersController, :type => :controller do
         get :show, {:id => customer.id}
         expect(assigns(:user)).to eq(customer)
       end
-
     end
 
     context "GET edit" do
-
       it "assigns his user as @user " do
         get :edit, {:id => customer.id}
         expect(assigns(:user)).to eq(customer)
@@ -113,7 +97,6 @@ RSpec.describe UsersController, :type => :controller do
         get :edit, {:id => admin.id}
         expect(assigns(:user)).to eq(customer)
       end
-    
     end
 
     describe "PUT update" do

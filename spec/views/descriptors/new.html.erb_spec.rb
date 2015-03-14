@@ -2,10 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "descriptors/new", :type => :view do
   before(:each) do
-    assign(:descriptor, Descriptor.new(
-      :name => "MyString",
-      :active => false
-    ))
+    @descriptor = Descriptor.new
   end
 
   it "renders new descriptor form" do

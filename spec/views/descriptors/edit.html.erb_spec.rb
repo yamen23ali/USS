@@ -2,10 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "descriptors/edit", :type => :view do
   before(:each) do
-    @descriptor = assign(:descriptor, Descriptor.create!(
-      :name => "MyString",
-      :active => false
-    ))
+    @descriptor = create(:descriptor, :name => "Test Descriptor", :active => false)
   end
 
   it "renders the edit descriptor form" do
