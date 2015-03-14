@@ -17,8 +17,8 @@ FactoryGirl.define do
     sequence(:name) {|n| "Tag #{n}"}
   end
 
-  factory :meta_data do
-    sequence(:name){|n| "Meta Data #{n}"}
+  factory :descriptor do
+    sequence(:name){|n| "Descriptor #{n}"}
   end
 
   factory :sub_category do
@@ -52,8 +52,8 @@ FactoryGirl.define do
 
   factory :asset_data do
     asset
-    meta_data
-    sequence(:meta_data_value){|n| "Meta Data Value #{n}"}
+    descriptor
+    sequence(:descriptor_value){|n| "Descriptor Value #{n}"}
     sequence(:photo){|n| "C:/test:/#{n}"}
   end
 

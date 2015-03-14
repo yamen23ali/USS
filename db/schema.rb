@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150301095355) do
+ActiveRecord::Schema.define(version: 20150311163502) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(version: 20150301095355) do
 
   create_table "asset_data", force: true do |t|
     t.integer  "asset_id"
-    t.integer  "meta_data_id"
-    t.string   "meta_data_value"
+    t.integer  "descriptor_id"
+    t.string   "descriptor_value"
     t.string   "photo"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20150301095355) do
     t.datetime "updated_at"
   end
 
-  create_table "meta_data", force: true do |t|
+  create_table "descriptors", force: true do |t|
     t.string   "name"
     t.boolean  "active"
     t.datetime "created_at"

@@ -1,4 +1,4 @@
-class MetaData < ActiveRecord::Base
+class Descriptor < ActiveRecord::Base
 
   has_many :asset_data
 
@@ -7,7 +7,7 @@ class MetaData < ActiveRecord::Base
   before_save :default_values
 
   def default_values
-    self.active ||= true
+    active = true if active.nil?
   end
 
 end

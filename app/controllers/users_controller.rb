@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   
   before_action :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  
   load_and_authorize_resource
 
   respond_to :html, :xml, :json
@@ -24,7 +25,6 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    #binding.pry
     if @user.update(user_params)
       respond_with @user, notice: 'User was successfully updated.'
     else

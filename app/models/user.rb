@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   before_save :default_values
 
-  validates_email_format_of :contact_email, :message => 'is not looking good'
+  validates_email_format_of :contact_email , :allow_nil => true , :allow_blank => true ,:message => 'is not looking good'
 
   def default_values
     self.account_id ||= 2

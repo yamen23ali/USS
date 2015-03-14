@@ -6,14 +6,18 @@ class Ability
       user ||= User.new # guest user (not logged in)
       
       alias_action :create, :read, :update, :destroy, :to => :crud
-      alias_action :create, :destroy , :index  , :new , :to => :forbidden
+      alias_action :create, :destroy , :index  , :new , :to => :partially_forbidden
+      alias_action :partially_forbidden , :edit , :show , :to => :forbidden
 
       case user.role
       when :admin
         can  :manage , :all
       when :customer
         can :manage , :all
-        cannot :forbidden , User
+        cannot :partially_forbidden , User
+        cannot :forbidden , Category
+        cannot :forbidden , SubCategory
+        cannot :forbidden , Descriptor
       end
   end
 end
