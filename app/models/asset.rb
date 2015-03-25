@@ -11,7 +11,16 @@ class Asset < ActiveRecord::Base
   has_many :offer , :through => :offer_asset
 
   validates :user, :presence => true
-  validates :status, :presence => true
   validates :category, :presence => true
+
+  accepts_nested_attributes_for :asset_data , :allow_destroy => true
+
+  before_save :default_values
+
+  def default_values
+    status |= 1
+    binding.pry
+    sub_category_id = nil if sub_category_id == 0
+  end
   
 end

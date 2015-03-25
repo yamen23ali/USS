@@ -1,0 +1,19 @@
+<div class="fields">
+  
+  <div class="field">
+    <%= f.label :descriptor_id %><br>
+    <%= f.collection_select :descriptor_id , Descriptor.where(active: true) , :id , :name  ,
+        :include_blank => "Please select..." %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :descriptor_value %><br>
+    <%= f.text_field :descriptor_value %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :photo %><br>
+    <%= f.text_field :photo %>
+  </div>
+
+</div>

@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :category_id %><br>
-    <%= f.collection_select :category_id , Category.all , :id , :name %>
+    <%= f.collection_select :category_id , Category.where(active: true) , :id , :name %>
   </div>
   <br>
   <div class="actions">

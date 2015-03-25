@@ -30,6 +30,9 @@ gem 'cancan'
 # Validtes email
 gem 'validates_email_format_of'
 
+# Add Nested Forms
+gem "cocoon"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

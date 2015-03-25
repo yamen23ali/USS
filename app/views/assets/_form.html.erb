@@ -1,0 +1,33 @@
+<%= form_for(@asset) do |f| %>
+  <% if @asset.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@asset.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+      <% @asset.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :category_id %><br>
+    <%= f.collection_select :category_id , Category.where(active: true) , :id , :name  ,
+        :include_blank => "Please select..." %>
+  </div>
+  <div class="field">
+    <%= f.label :sub_category_id %><br>
+    <%= f.collection_select :sub_category_id , [] , :id , :name  , :include_blank => "Please select..."%>
+  </div>
+
+  <%= f.fields_for :asset_data do |builder| %>
+    <%= render 'asset_data_fields', :f => builder %>
+  <% end %>
+
+  <p><%= link_to_add_association 'add data', f, :asset_data %></p>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Descriptor:</strong>
+  <%= @asset_data.descriptor_id %>
+</p>
+
+<p>
+  <strong>Descriptor value:</strong>
+  <%= @asset_data.descriptor_value %>
+</p>
+
+<p>
+  <strong>Photo:</strong>
+  <%= @asset_data.photo %>
+</p>
+
+<%= link_to 'Edit', edit_asset_data_path(@asset_data) %> |
+<%= link_to 'Back', asset_data_index_path %>
