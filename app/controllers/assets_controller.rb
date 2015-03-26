@@ -21,7 +21,6 @@ class AssetsController < ApplicationController
   # GET /assets/new
   def new
     @asset = Asset.new
-    @asset.asset_data.build
   end
 
   # GET /assets/1/edit
@@ -35,7 +34,7 @@ class AssetsController < ApplicationController
     if @asset.save
       respond_with @asset, notice: 'Asset was successfully created.'
     else        
-      format.html { render :new }
+      render :new
     end
   end
 
@@ -56,13 +55,6 @@ class AssetsController < ApplicationController
     redirect_to assets_url, notice: 'Asset was successfully destroyed.'
   end
 
-  def add_asset_data
-    binding.pry
-    asset_data = AssetData.new(asset_data_params)
-    asset_data.asset_id = params[:id]
-    asset_data.save
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_asset
@@ -75,6 +67,6 @@ class AssetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def asset_params
-      params.require(:asset).permit(:category_id, :sub_category_id , asset_data_attributes: [:descriptor_id, :descriptor_name])
+      params.require(:asset).permit(:category_id, :sub_category_id , asset_data_attributes: [:photo , :descriptor_id , :descriptor_value])
     end
 end

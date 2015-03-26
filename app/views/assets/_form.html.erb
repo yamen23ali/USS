@@ -21,11 +21,16 @@
     <%= f.collection_select :sub_category_id , [] , :id , :name  , :include_blank => "Please select..."%>
   </div>
 
-  <%= f.fields_for :asset_data do |builder| %>
-    <%= render 'asset_data_fields', :f => builder %>
+  <%= f.fields_for :asset_data , AssetData.new do |builder| %>
+    <%= render 'asset_descriptors', :f => builder %>
   <% end %>
 
-  <p><%= link_to_add_association 'add data', f, :asset_data %></p>
+  <%= f.fields_for :asset_data , AssetData.new do |builder| %>
+    <%= render 'asset_photos', :f => builder %>
+  <% end %>
+
+  <p><%= link_to_add_association 'add data', f , :asset_data , :partial => 'asset_descriptors' %></p>
+  <p><%= link_to_add_association 'add photo', f , :asset_data , :partial => 'asset_photos' %></p>
 
   <div class="actions">
     <%= f.submit %>

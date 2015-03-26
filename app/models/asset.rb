@@ -13,14 +13,17 @@ class Asset < ActiveRecord::Base
   validates :user, :presence => true
   validates :category, :presence => true
 
-  accepts_nested_attributes_for :asset_data , :allow_destroy => true
+  accepts_nested_attributes_for :asset_data , :reject_if => :reject_asset_data , :allow_destroy => true
 
   before_save :default_values
 
   def default_values
-    status |= 1
-    binding.pry
-    sub_category_id = nil if sub_category_id == 0
+    self.status_id |= 1
+    self.sub_category_id = nil if self.sub_category_id == 0
+  end
+
+  def reject_asset_data(attributes)
+    attributes['descriptor_id'].blank? && attributes['photo'].blank?
   end
   
 end
