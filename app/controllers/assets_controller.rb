@@ -21,6 +21,8 @@ class AssetsController < ApplicationController
   # GET /assets/new
   def new
     @asset = Asset.new
+    @asset_descriptors = @asset.asset_data.build
+    @asset_photos = @asset.asset_data.build
   end
 
   # GET /assets/1/edit
@@ -61,12 +63,16 @@ class AssetsController < ApplicationController
       @asset = if current_user.is_admin? 
         Asset.find(params[:id])
       else
-        Asset.find(params[:id]).where(user_id: current_user.id)
+        Asset.find(params[:id]).where(user_id: current_user.id) #restrict user access to his own assets
       end
+      @asset_descriptors = @asset.asset_data.select {|data| data.photo.nil? }
+      @asset_photos = @asset.asset_data.select {|data| !data.photo.nil? }
+      @sub_categories = SubCategory.where(category_id: @asset.category_id,active: true)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def asset_params
-      params.require(:asset).permit(:category_id, :sub_category_id , asset_data_attributes: [:photo , :descriptor_id , :descriptor_value])
+      params.require(:asset).permit(:category_id, :sub_category_id , 
+                                    asset_data_attributes: [:id,:photo , :descriptor_id , :descriptor_value , :_destroy])
     end
 end

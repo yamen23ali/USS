@@ -3,7 +3,7 @@ class Asset < ActiveRecord::Base
   belongs_to :category
   belongs_to :sub_category
   belongs_to :status
-  has_many :asset_data
+  has_many :asset_data , :dependent => :destroy
   has_many :asset_tag
   has_many :tag, :through => :asset_tag
   has_many :review

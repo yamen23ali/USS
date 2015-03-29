@@ -1,7 +1,7 @@
 <div class="descriptors">
   <%= f.label :descriptor_id %><br>
   <%= f.collection_select :descriptor_id , Descriptor.where(active: true) , :id , :name  ,
-  :include_blank => "Please select..." %>
+     :include_blank => "Please select..." %>
   <%= f.text_field :descriptor_value %>
   <%= link_to_remove_association "remove", f , { wrapper_class: 'descriptors' } %>
 </div>
