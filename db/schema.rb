@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150311163502) do
+ActiveRecord::Schema.define(version: 20150412163209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,16 +32,6 @@ ActiveRecord::Schema.define(version: 20150311163502) do
   end
 
   add_index "asset_data", ["asset_id"], name: "index_asset_data_on_asset_id", using: :btree
-
-  create_table "asset_tags", force: true do |t|
-    t.integer  "asset_id"
-    t.integer  "tag_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "asset_tags", ["asset_id"], name: "index_asset_tags_on_asset_id", using: :btree
-  add_index "asset_tags", ["tag_id"], name: "index_asset_tags_on_tag_id", using: :btree
 
   create_table "assets", force: true do |t|
     t.integer  "user_id"
@@ -122,11 +112,25 @@ ActiveRecord::Schema.define(version: 20150311163502) do
 
   add_index "sub_categories", ["category_id"], name: "index_sub_categories_on_category_id", using: :btree
 
-  create_table "tags", force: true do |t|
-    t.string   "name"
+  create_table "taggings", force: true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       limit: 128
     t.datetime "created_at"
-    t.datetime "updated_at"
   end
+
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
+
+  create_table "tags", force: true do |t|
+    t.string  "name"
+    t.integer "taggings_count", default: 0
+  end
+
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.integer  "account_id"

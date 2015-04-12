@@ -1,0 +1,29 @@
+<h1>Listing asset_data</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Descriptor</th>
+      <th>Descriptor value</th>
+      <th>Photo</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @asset_data.each do |asset_data| %>
+      <tr>
+        <td><%= asset_data.descriptor_id %></td>
+        <td><%= asset_data.descriptor_value %></td>
+        <td><%= asset_data.photo %></td>
+        <td><%= link_to 'Show', asset_data %></td>
+        <td><%= link_to 'Edit', edit_asset_data_path(asset_data) %></td>
+        <td><%= link_to 'Destroy', asset_data, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Asset data', new_asset_data_path %>

@@ -42,6 +42,8 @@ class CategoriesController < ApplicationController
   # PATCH/PUT /categories/1.json
   def update
     if @category.update(category_params)
+      
+      SubCategory.where(category_id: @category.id).update_all(active: @category.active)
       respond_with @category, notice: 'Category was successfully updated.'
     else
        render :edit
@@ -53,6 +55,10 @@ class CategoriesController < ApplicationController
   def destroy
     @category.destroy
     redirect_to categories_url, notice: 'Category was successfully destroyed.'
+  end
+
+  def sub_categories
+    render :json => SubCategory.where(category_id: params[:id], active: true)
   end
 
   private

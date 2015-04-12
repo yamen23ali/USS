@@ -1,0 +1,15 @@
+<h1>Listing assets</h1>
+
+<table>
+  <tbody>
+    <% @assets.each do |asset| @asset = asset %>
+      <tr>
+        <td><%= render "row" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Asset', new_asset_path %>

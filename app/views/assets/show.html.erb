@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Category:</strong>
+  <%= category %>
+</p>
+
+<p>
+  <strong>Sub category:</strong>
+  <%= sub_category %>
+</p>
+
+<p>
+  <strong>Descriptors:</strong>
+  <% get_descriptors_details.each do |descriptor| %>
+    <%= render 'asset_descriptor_show', descriptor: descriptor %>
+   <% end %>
+</p>
+
+<p>
+  <strong>Photos:</strong>
+  <% @asset_photos.each do |asset_data| %>
+    <%= render 'asset_photo_show', asset_data: asset_data %>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_asset_path(@asset) %> |
+<%= link_to 'Back', assets_path %>

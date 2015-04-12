@@ -11,8 +11,18 @@ Rails.application.routes.draw do
   end
 
   resources :sub_categories
-  resources :categories
+  
+  resources :categories do
+    member do
+      get 'sub_categories'
+    end
+  end
+  
   resources :descriptors
+  resources :assets
+  resources :asset_data
+
+
 
   
   # The priority is based upon order of creation: first created -> highest priority.

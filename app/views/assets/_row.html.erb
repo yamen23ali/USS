@@ -1,0 +1,15 @@
+<div>Photo : <%= asset_preview %></div>
+
+<div>
+  Category : <%= category %> <br>
+  Sub Category :<%= sub_category %> <br>
+</div>
+
+<div>
+	<%= link_to 'Show', @asset %>
+    <%= link_to 'Edit', edit_asset_path(@asset) %>
+    <%= link_to 'Destroy', @asset, method: :delete, data: { confirm: 'Are you sure?' } %>
+</div>
+<br>
+ 
+        
