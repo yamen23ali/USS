@@ -17,6 +17,8 @@ class Asset < ActiveRecord::Base
 
   before_save :default_values
 
+  acts_as_taggable
+
   def default_values
     self.status_id |= 1
     self.sub_category_id = nil if self.sub_category_id == 0

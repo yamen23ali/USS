@@ -38,6 +38,8 @@
   
   <p><%= link_to_add_association 'add photo', f , :asset_data , :partial => 'asset_photos_form' %></p>
 
+   <%= f.text_area(:tag_list, :size => "50x10") %>
+
   <div class="actions">
     <%= f.submit %>
   </div>
