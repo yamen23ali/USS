@@ -21,6 +21,12 @@ Rails.application.routes.draw do
   resources :descriptors
   resources :assets
   resources :asset_data
+  
+  resources :offers do
+    member do
+      get 'choose_assets'
+    end
+  end
 
 
 

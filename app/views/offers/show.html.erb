@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+<table>
+ <thead>
+    <tr>
+      <th>Given</th>
+      <th>Received</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+    	<table>
+    		<% @offer.given_asstes.each do |asset| %>
+    		  <tr>
+    		  	<td><%= asset.id %></td>
+    		  </tr>
+    		<% end %>
+    	</table>
+      </td>
+
+      <td>
+    	<table>
+    		<% @offer.received_asstes.each do |asset| %>
+    		  <tr>
+    		  	<td><%= asset.id %></td>
+    		  </tr>
+    		<% end %>
+    	</table>
+      </td>
+
+    </tr>
+  </tbody>
+</table>
+<%= link_to 'Edit', edit_offer_path(@offer) %> |
+<%= link_to 'Back', offers_path %>

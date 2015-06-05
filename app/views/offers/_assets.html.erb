@@ -1,0 +1,4 @@
+<% assets.each do |asset| %>
+    <% @asset = asset %>
+    <%= render 'assets_row' , :f => f , :att_name => att_name %>
+<% end %>
