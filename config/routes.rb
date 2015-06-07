@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   
   resources :offers do
     member do
-      get 'choose_assets'
+      post 'choose_assets'
     end
   end
 

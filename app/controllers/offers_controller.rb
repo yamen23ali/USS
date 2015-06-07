@@ -26,6 +26,8 @@ class OffersController < ApplicationController
 
   # GET /offers/1/edit
   def edit
+    #binding.pry
+    render :choose_assets
   end
 
   # POST /offers
@@ -33,8 +35,7 @@ class OffersController < ApplicationController
   def create
     @offer = Offer.new(offer_params.merge( from_id: current_user.id , status_id: 1 ))
     if @offer.save
-       #redirect_to :action => "choose_assets" , :id => @offer.id
-       render :choose_assets
+      render :choose_assets , :params => params
     else        
       render :new
     end
@@ -58,6 +59,8 @@ class OffersController < ApplicationController
   end
 
   def choose_assets
+    @offer.choosed_assets = params[:offer][:choosed_assets]
+    redirect_to action: "index"
   end
 
   private
@@ -68,6 +71,6 @@ class OffersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def offer_params
-      params.require(:offer).permit(:to_id)
+      params.require(:offer).permit(:to_id,:id,choosed_assets:[])
     end
 end

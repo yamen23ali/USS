@@ -9,8 +9,6 @@ class Offer < ActiveRecord::Base
   validates :to , :presence => true
   validates :status , :presence => true
 
-  attr_accessor :choosed_to_be_given , :choosed_to_be_received
-
   def given_assets
   	assets.where('assets.user_id' => from.id)
   end
@@ -25,6 +23,16 @@ class Offer < ActiveRecord::Base
 
   def to_assets
   	Asset.where(user_id: to.id)
+  end
+
+  def choosed_assets
+  end
+
+  def choosed_assets=(assets)
+    asset.destroy_all
+    assets.each do |asset_id|
+      OfferAsset.create(offer_id: id, asset_id: asset_id)
+    end
   end
 
 end
