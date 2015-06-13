@@ -11,9 +11,9 @@
     <tr>
       <td>
     	<table>
-    		<% @offer.given_asstes.each do |asset| %>
+    		<% @offer.given_assets.each do |asset| %>
     		  <tr>
-    		  	<td><%= asset.id %></td>
+    		  	<td><%= render_asset_info(asset) %></td>
     		  </tr>
     		<% end %>
     	</table>
@@ -21,9 +21,9 @@
 
       <td>
     	<table>
-    		<% @offer.received_asstes.each do |asset| %>
+    		<% @offer.received_assets.each do |asset| %>
     		  <tr>
-    		  	<td><%= asset.id %></td>
+    		  	<td><%= render_asset_info(asset) %></td>
     		  </tr>
     		<% end %>
     	</table>

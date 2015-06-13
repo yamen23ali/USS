@@ -2,7 +2,7 @@ class Offer < ActiveRecord::Base
   belongs_to :status
   belongs_to :from , class_name: 'User'
   belongs_to :to , class_name: 'User'
-  has_many :offer_asset
+  has_many :offer_asset , :dependent => :destroy
   has_many :asset , :through => :offer_asset
 
   validates :from , :presence => true
@@ -10,11 +10,11 @@ class Offer < ActiveRecord::Base
   validates :status , :presence => true
 
   def given_assets
-  	assets.where('assets.user_id' => from.id)
+  	asset.where('assets.user_id' => from.id)
   end
 
   def received_assets
-  	assets.where.not('assets.user_id' => to.id)
+  	asset.where('assets.user_id' => to.id)
   end
 
   def from_assets

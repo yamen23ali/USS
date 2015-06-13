@@ -1,7 +1,7 @@
 class OffersController < ApplicationController
   
   before_action :authenticate_user!
-  before_action :set_offer, only: [:show, :edit, :update, :destroy,:choose_assets]
+  before_action :set_offer, only: [:show, :edit, :update, :destroy,:choose_assets,:show_received]
 
   load_and_authorize_resource
   
@@ -18,6 +18,11 @@ class OffersController < ApplicationController
   def show
   end
 
+  # GET /offers/1
+  # GET /offers/1.json
+  def show_received
+  end
+
   # GET /offers/new
   def new
     @offer = Offer.new
@@ -26,7 +31,6 @@ class OffersController < ApplicationController
 
   # GET /offers/1/edit
   def edit
-    #binding.pry
     render :choose_assets
   end
 
@@ -61,6 +65,10 @@ class OffersController < ApplicationController
   def choose_assets
     @offer.choosed_assets = params[:offer][:choosed_assets]
     redirect_to action: "index"
+  end
+
+  def received_offers
+    @offers = Offer.where(to_id: current_user.id)
   end
 
   private

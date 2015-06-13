@@ -25,6 +25,11 @@ Rails.application.routes.draw do
   resources :offers do
     member do
       post 'choose_assets'
+      get 'show_received'
+    end
+
+    collection do
+      get 'received_offers'
     end
   end
 

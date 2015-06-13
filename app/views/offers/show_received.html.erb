@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+<table>
+ <thead>
+    <tr>
+      <th>Give</th>
+      <th>Receive</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        <table>
+          <% @offer.received_assets.each do |asset| %>
+          <tr>
+    		  	<td><%= render_asset_info(asset) %></td>
+    		  </tr>
+          <% end %>
+        </table>
+      </td>
+
+      <td>
+        <table>
+          <% @offer.given_assets.each do |asset| %>
+          <tr>
+            <td><%= render_asset_info(asset) %></td>
+          </tr>
+          <% end %>
+        </table>
+      </td>
+
+    </tr>
+  </tbody>
+</table>
