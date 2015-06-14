@@ -8,7 +8,7 @@ class Category < ActiveRecord::Base
   before_save :default_values
 
   def default_values
-    active = true if active.nil?
+    self.active = true if active.nil?
   end
 
 end

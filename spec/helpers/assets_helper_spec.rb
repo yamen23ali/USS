@@ -11,5 +11,27 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe AssetsHelper, :type => :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  let(:descriptor) {create(:descriptor , id: 1 , name: "Desc1" )}
+  let(:asset) {create(:asset)}
+  
+  
+  it "Get Asset Descriptors Details" do
+  	asset_data = create_list(:asset_data, 5 ,asset: asset , descriptor: descriptor , photo: nil)
+  	@asset_descriptors = asset.asset_data.select {|data| data.photo.nil? }
+  	expect(helper.get_descriptors_details.count).to eq(5)
+  end
+
+  it "Get Asset Category" do
+  	category = create(:category)
+  	@asset = create(:asset , category: category )
+  	expect(helper.category).to eq(category.name)
+  end
+
+  it "Get Asset Sub Category" do
+  	sub_category = create(:sub_category)
+  	@asset = create(:asset , sub_category: sub_category )
+  	expect(helper.sub_category).to eq(sub_category.name)
+  end
+
 end
