@@ -6,7 +6,7 @@ FactoryGirl.define do
 
   factory :status do
     sequence(:name) {|n| "Status #{n}"}
-    sequence(:type) {|n| "Type #{n}"}
+    sequence(:status_type) {|n| "Type #{n}"}
   end
 
   factory :account do

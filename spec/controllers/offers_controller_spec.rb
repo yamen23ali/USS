@@ -20,50 +20,51 @@ require 'rails_helper'
 
 RSpec.describe OffersController, :type => :controller do
 
+
+  let(:customer_account) {create(:account , id: 2 , name: 'Customer')}
+  let(:customer) { create(:user , account: customer_account)}
+  let(:customer2) { create(:user)}
+  let(:offers) {create_list(:offer,5,from: customer, to: customer2)}
+  let(:status) {create(:status, id:1)}
+
   # This should return the minimal set of attributes required to create a valid
   # Offer. As you add validations to Offer, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    { form_id: customer , to_id: customer2 , status: status}
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {from: nil , to: nil}
   }
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # OffersController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  before (:each) { sign_in_as_a_valid_user(customer) }
 
   describe "GET index" do
     it "assigns all offers as @offers" do
-      offer = Offer.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns(:offers)).to eq([offer])
+      get :index, {}
+      expect(assigns(:offers)).to eq(offers)
     end
   end
 
   describe "GET show" do
     it "assigns the requested offer as @offer" do
-      offer = Offer.create! valid_attributes
-      get :show, {:id => offer.to_param}, valid_session
-      expect(assigns(:offer)).to eq(offer)
+      get :show, {:id => offers.first.to_param}
+      expect(assigns(:offer)).to eq(offers.first)
     end
   end
 
   describe "GET new" do
     it "assigns a new offer as @offer" do
-      get :new, {}, valid_session
+      get :new, {}
       expect(assigns(:offer)).to be_a_new(Offer)
     end
   end
 
   describe "GET edit" do
     it "assigns the requested offer as @offer" do
-      offer = Offer.create! valid_attributes
-      get :edit, {:id => offer.to_param}, valid_session
-      expect(assigns(:offer)).to eq(offer)
+      get :edit, {:id => offers.first.to_param}
+      expect(assigns(:offer)).to eq(offers.first)
     end
   end
 
@@ -71,87 +72,48 @@ RSpec.describe OffersController, :type => :controller do
     describe "with valid params" do
       it "creates a new Offer" do
         expect {
-          post :create, {:offer => valid_attributes}, valid_session
+          post :create, {:offer => valid_attributes}
         }.to change(Offer, :count).by(1)
       end
 
       it "assigns a newly created offer as @offer" do
-        post :create, {:offer => valid_attributes}, valid_session
+        post :create, {:offer => valid_attributes}
         expect(assigns(:offer)).to be_a(Offer)
         expect(assigns(:offer)).to be_persisted
       end
 
       it "redirects to the created offer" do
-        post :create, {:offer => valid_attributes}, valid_session
-        expect(response).to redirect_to(Offer.last)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved offer as @offer" do
-        post :create, {:offer => invalid_attributes}, valid_session
-        expect(assigns(:offer)).to be_a_new(Offer)
-      end
-
-      it "re-renders the 'new' template" do
-        post :create, {:offer => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
+        post :create, {:offer => valid_attributes}
+        expect(response).to render_template(:choose_assets)
       end
     end
   end
 
-  describe "PUT update" do
-    describe "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+  describe "Choose Asset" do
 
-      it "updates the requested offer" do
-        offer = Offer.create! valid_attributes
-        put :update, {:id => offer.to_param, :offer => new_attributes}, valid_session
-        offer.reload
-        skip("Add assertions for updated state")
-      end
+    let(:category) {create(:category)}
+    let(:assets) {create_list(:asset,5,category: category)}
+    let(:choosed_assets_att) {{ choosed_assets: [assets.first,assets.last] , id: offers.first.id}}
 
-      it "assigns the requested offer as @offer" do
-        offer = Offer.create! valid_attributes
-        put :update, {:id => offer.to_param, :offer => valid_attributes}, valid_session
-        expect(assigns(:offer)).to eq(offer)
-      end
-
-      it "redirects to the offer" do
-        offer = Offer.create! valid_attributes
-        put :update, {:id => offer.to_param, :offer => valid_attributes}, valid_session
-        expect(response).to redirect_to(offer)
-      end
+    it "Chooses asset to associate with the offer" do
+      expect {
+        post :choose_assets, { id: offers.first.id ,:offer => choosed_assets_att}
+      }.to change(OfferAsset, :count).by(2)
     end
-
-    describe "with invalid params" do
-      it "assigns the offer as @offer" do
-        offer = Offer.create! valid_attributes
-        put :update, {:id => offer.to_param, :offer => invalid_attributes}, valid_session
-        expect(assigns(:offer)).to eq(offer)
-      end
-
-      it "re-renders the 'edit' template" do
-        offer = Offer.create! valid_attributes
-        put :update, {:id => offer.to_param, :offer => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
-      end
-    end
+    
   end
 
   describe "DELETE destroy" do
+    before (:each) { @offer = create(:offer, from: customer) }
+
     it "destroys the requested offer" do
-      offer = Offer.create! valid_attributes
       expect {
-        delete :destroy, {:id => offer.to_param}, valid_session
+        delete :destroy, {:id => @offer.to_param}
       }.to change(Offer, :count).by(-1)
     end
 
     it "redirects to the offers list" do
-      offer = Offer.create! valid_attributes
-      delete :destroy, {:id => offer.to_param}, valid_session
+      delete :destroy, {:id => @offer.to_param}
       expect(response).to redirect_to(offers_url)
     end
   end
