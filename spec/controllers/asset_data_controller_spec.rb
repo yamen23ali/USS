@@ -20,50 +20,51 @@ require 'rails_helper'
 
 RSpec.describe AssetDataController, :type => :controller do
 
+  let(:customer_account) {create(:account , id: 2 , name: 'Customer')}
+  let(:customer) { create(:user , account: customer_account)}
+  let(:asset) {create(:asset, user: customer)}
+  let(:asset_data) {create_list(:asset_data, 5 , asset: asset)}
+  let(:descriptor) {create(:descriptor)}
+
+
   # This should return the minimal set of attributes required to create a valid
   # AssetData. As you add validations to AssetData, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    { asset: asset , descriptor_id: descriptor.id }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
   }
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # AssetDataController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+
+  before (:each) { sign_in_as_a_valid_user(customer) }
 
   describe "GET index" do
     it "assigns all asset_data as @asset_data" do
-      asset_data = AssetData.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns(:asset_data)).to eq([asset_data])
+      get :index, {}
+      expect(assigns(:asset_data)).to eq(asset_data)
     end
   end
 
   describe "GET show" do
     it "assigns the requested asset_data as @asset_data" do
-      asset_data = AssetData.create! valid_attributes
-      get :show, {:id => asset_data.to_param}, valid_session
-      expect(assigns(:asset_data)).to eq(asset_data)
+      get :show, {:id => asset_data.first.to_param}
+      expect(assigns(:asset_data)).to eq(asset_data.first)
     end
   end
 
   describe "GET new" do
     it "assigns a new asset_data as @asset_data" do
-      get :new, {}, valid_session
+      get :new, {}
       expect(assigns(:asset_data)).to be_a_new(AssetData)
     end
   end
 
   describe "GET edit" do
     it "assigns the requested asset_data as @asset_data" do
-      asset_data = AssetData.create! valid_attributes
-      get :edit, {:id => asset_data.to_param}, valid_session
-      expect(assigns(:asset_data)).to eq(asset_data)
+      get :edit, {:id => asset_data.first.to_param}
+      expect(assigns(:asset_data)).to eq(asset_data.first)
     end
   end
 
@@ -71,87 +72,63 @@ RSpec.describe AssetDataController, :type => :controller do
     describe "with valid params" do
       it "creates a new AssetData" do
         expect {
-          post :create, {:asset_data => valid_attributes}, valid_session
+          post :create, {:asset_data => valid_attributes}
         }.to change(AssetData, :count).by(1)
       end
 
       it "assigns a newly created asset_data as @asset_data" do
-        post :create, {:asset_data => valid_attributes}, valid_session
+        post :create, {:asset_data => valid_attributes}
         expect(assigns(:asset_data)).to be_a(AssetData)
         expect(assigns(:asset_data)).to be_persisted
       end
 
       it "redirects to the created asset_data" do
-        post :create, {:asset_data => valid_attributes}, valid_session
+        post :create, {:asset_data => valid_attributes}
         expect(response).to redirect_to(AssetData.last)
       end
     end
 
     describe "with invalid params" do
-      it "assigns a newly created but unsaved asset_data as @asset_data" do
-        post :create, {:asset_data => invalid_attributes}, valid_session
-        expect(assigns(:asset_data)).to be_a_new(AssetData)
-      end
-
-      it "re-renders the 'new' template" do
-        post :create, {:asset_data => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
-      end
     end
   end
 
   describe "PUT update" do
     describe "with valid params" do
+      let(:new_descriptor) {create(:descriptor)}
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {descriptor_id: new_descriptor.id}
       }
 
       it "updates the requested asset_data" do
-        asset_data = AssetData.create! valid_attributes
-        put :update, {:id => asset_data.to_param, :asset_data => new_attributes}, valid_session
-        asset_data.reload
-        skip("Add assertions for updated state")
+        put :update, {:id => asset_data.first.to_param, :asset_data => new_attributes}
+        asset_data.first.reload
+        expect(asset_data.first.descriptor).to eq(new_descriptor)
       end
 
       it "assigns the requested asset_data as @asset_data" do
-        asset_data = AssetData.create! valid_attributes
-        put :update, {:id => asset_data.to_param, :asset_data => valid_attributes}, valid_session
-        expect(assigns(:asset_data)).to eq(asset_data)
+        put :update, {:id => asset_data.first.to_param, :asset_data => valid_attributes}
+        expect(assigns(:asset_data)).to eq(asset_data.first)
       end
 
       it "redirects to the asset_data" do
-        asset_data = AssetData.create! valid_attributes
-        put :update, {:id => asset_data.to_param, :asset_data => valid_attributes}, valid_session
-        expect(response).to redirect_to(asset_data)
+        put :update, {:id => asset_data.first.to_param, :asset_data => valid_attributes}
+        expect(response).to redirect_to(asset_data.first)
       end
     end
 
     describe "with invalid params" do
-      it "assigns the asset_data as @asset_data" do
-        asset_data = AssetData.create! valid_attributes
-        put :update, {:id => asset_data.to_param, :asset_data => invalid_attributes}, valid_session
-        expect(assigns(:asset_data)).to eq(asset_data)
-      end
-
-      it "re-renders the 'edit' template" do
-        asset_data = AssetData.create! valid_attributes
-        put :update, {:id => asset_data.to_param, :asset_data => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
-      end
     end
   end
 
   describe "DELETE destroy" do
     it "destroys the requested asset_data" do
-      asset_data = AssetData.create! valid_attributes
       expect {
-        delete :destroy, {:id => asset_data.to_param}, valid_session
-      }.to change(AssetData, :count).by(-1)
+        delete :destroy, {:id => asset_data.first.to_param}
+      }.to change(AssetData, :count).by(4)
     end
 
     it "redirects to the asset_data list" do
-      asset_data = AssetData.create! valid_attributes
-      delete :destroy, {:id => asset_data.to_param}, valid_session
+      delete :destroy, {:id => asset_data.first.to_param}
       expect(response).to redirect_to(asset_data_index_url)
     end
   end
