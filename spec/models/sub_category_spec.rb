@@ -20,6 +20,7 @@ describe SubCategory do
 
   it "Is active by default" do
     sub_category=create(:sub_category)
+    sub_category.save
     expect(sub_category.active).to eq(true)
   end
   

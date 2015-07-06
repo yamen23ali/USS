@@ -25,4 +25,13 @@ class User < ActiveRecord::Base
      role==:admin ? true :false 
   end
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
+  def self.users_list
+    User.order("first_name")
+      .map{|user| [user.full_name , user.id] }
+  end
+
 end

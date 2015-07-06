@@ -63,7 +63,7 @@ class AssetsController < ApplicationController
       @asset = if current_user.is_admin? 
         Asset.find(params[:id])
       else
-        Asset.find(params[:id]).where(user_id: current_user.id) #restrict user access to his own assets
+        Asset.where(user_id: current_user.id,id: params[:id]).first #restrict user access to his own assets
       end
       @asset_descriptors = @asset.asset_data.select {|data| data.photo.nil? }
       @asset_photos = @asset.asset_data.select {|data| !data.photo.nil? }

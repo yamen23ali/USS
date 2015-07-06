@@ -6,15 +6,11 @@ FactoryGirl.define do
 
   factory :status do
     sequence(:name) {|n| "Status #{n}"}
-    sequence(:type) {|n| "Type #{n}"}
+    sequence(:status_type) {|n| "Type #{n}"}
   end
 
   factory :account do
     sequence(:name) {|n| "Account #{n}"}
-  end
-
-  factory :tag do 
-    sequence(:name) {|n| "Tag #{n}"}
   end
 
   factory :descriptor do
@@ -55,11 +51,6 @@ FactoryGirl.define do
     descriptor
     sequence(:descriptor_value){|n| "Descriptor Value #{n}"}
     sequence(:photo){|n| "C:/test:/#{n}"}
-  end
-
-  factory :asset_tag do
-    asset
-    tag
   end
 
   factory :offer do
