@@ -58,6 +58,7 @@ group :development, :test do
   gem 'shoulda'
   gem 'shoulda-matchers'
   gem 'capybara'
+  gem 'mailcatcher'
 end
 
 group :development do
