@@ -43,7 +43,7 @@ RSpec.describe OffersController, :type => :controller do
   describe "GET index" do
     it "assigns all offers as @offers" do
       get :index, {}
-      expect(assigns(:offers)).to eq(offers)
+      expect(assigns(:offers)).to match_array(offers)
     end
   end
 
