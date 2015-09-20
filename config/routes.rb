@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     member do
       post 'choose_assets'
       get 'show_received'
+      put 'accept'
+      put 'reject'
     end
 
     collection do

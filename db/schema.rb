@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150620061808) do
+ActiveRecord::Schema.define(version: 20150920111751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,16 @@ ActiveRecord::Schema.define(version: 20150620061808) do
   end
 
   add_index "asset_data", ["asset_id"], name: "index_asset_data_on_asset_id", using: :btree
+
+  create_table "asset_tags", force: true do |t|
+    t.integer  "asset_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "asset_tags", ["asset_id"], name: "index_asset_tags_on_asset_id", using: :btree
+  add_index "asset_tags", ["tag_id"], name: "index_asset_tags_on_tag_id", using: :btree
 
   create_table "assets", force: true do |t|
     t.integer  "user_id"
@@ -61,6 +71,13 @@ ActiveRecord::Schema.define(version: 20150620061808) do
     t.datetime "updated_at"
   end
 
+  create_table "meta_data", force: true do |t|
+    t.string   "name"
+    t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "offer_assets", force: true do |t|
     t.integer  "offer_id"
     t.integer  "asset_id"
@@ -76,6 +93,7 @@ ActiveRecord::Schema.define(version: 20150620061808) do
     t.integer  "status_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "state"
   end
 
   add_index "offers", ["from_id"], name: "index_offers_on_from_id", using: :btree
