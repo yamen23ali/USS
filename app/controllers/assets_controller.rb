@@ -73,6 +73,6 @@ class AssetsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def asset_params
       params.require(:asset).permit(:category_id, :sub_category_id , :tag_list ,
-                                    asset_data_attributes: [:id,:photo , :descriptor_id , :descriptor_value , :_destroy])
+                                    asset_data_attributes: [:id, :photo , :descriptor_id , :descriptor_value , :_destroy])
     end
 end

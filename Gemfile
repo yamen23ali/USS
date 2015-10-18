@@ -39,6 +39,10 @@ gem 'acts-as-taggable-on', '~> 3.4'
 # State Machine
 gem 'state_machine', '~> 1.1.2'
 
+# To upload images
+gem "paperclip", "~> 4.3"
+gem 'fog'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

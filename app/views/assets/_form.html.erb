@@ -32,11 +32,15 @@
   
 
   <%= f.fields_for :asset_data , @asset_photos do |builder| %>
-    <%= render 'asset_photos_form', :f => builder %>
+    <%= render 'asset_photos_form', :f => builder, :new_photo => false %>
   <% end %>
 
   
-  <p><%= link_to_add_association 'add photo', f , :asset_data , :partial => 'asset_photos_form' %></p>
+  <p>
+    <%= link_to_add_association 'add photo', f , :asset_data ,
+                                :render_options => { :locals => { :new_photo => true } },
+                                :partial => 'asset_photos_form' %>
+  </p>
 
    <%= f.text_area(:tag_list, :size => "50x10") %>
 
