@@ -1,4 +1,10 @@
 <%= form_for(@offer , :url => choose_assets_offer_path(@offer) , :method => :POST ) do |f| %>
+  
+  <% 
+     origin = params[:origin]
+     from_assets = ( origin == 'received_offers' ? @offer.to_assets : @offer.from_assets ) 
+     to_assets = ( origin == 'received_offers' ? @offer.from_assets : @offer.to_assets ) %>
+  
   <% if @offer.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@offer.errors.count, "error") %> prohibited this offer from being saved:</h2>
@@ -23,18 +29,18 @@
     <tbody>
       <tr>
         <td>
-          <%= render 'assets' , :f => f , :assets => @offer.from_assets , :att_name => "choosed_assets" %>
+          <%= render 'assets' , :f => f , :assets => from_assets , :att_name => "choosed_assets" %>
         </td>
 
         <td>
-          <%= render 'assets' , :f => f , :assets => @offer.to_assets , :att_name => "choosed_assets" %>
+          <%= render 'assets' , :f => f , :assets => to_assets , :att_name => "choosed_assets" %>
         </td>
       </tr>
     </tbody>
 
   <table>
 
-  <%= f.hidden_field :origin, :value => params[:origin] %>
+  <%= f.hidden_field :origin, :value => origin %>
 
   <div class="actions">
     <%= f.submit %>
