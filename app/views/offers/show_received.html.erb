@@ -32,3 +32,11 @@
     </tr>
   </tbody>
 </table>
+
+<%= form_for(@offer , :url => accept_offer_path(@offer) , :method => :PUT ) do |f| %>
+  <%= f.submit 'Accept'%>
+<% end %>
+
+<%= form_for(@offer , :url => reject_offer_path(@offer) , :method => :PUT ) do |f| %>
+  <%= f.submit 'Reject'%>
+<% end %>

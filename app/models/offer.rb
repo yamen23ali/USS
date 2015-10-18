@@ -9,6 +9,31 @@ class Offer < ActiveRecord::Base
   validates :to , :presence => true
   validates :status , :presence => true
 
+  state_machine :state, :initial => :new do
+
+    event :edit do
+      transition [:new] => :pending
+      transition [:pending] => :updated
+    end
+
+    event :seen do
+      transition [:updated] => :pending
+    end
+
+    event :accept do
+      transition [:pending, :updated] => :accepted
+    end
+
+    event :reject do
+      transition [:pending, :updated] => :rejected
+    end
+
+    event :cancel do
+      transition [:new] => :cancelled
+    end
+
+  end
+
   def given_assets
   	asset.where('assets.user_id' => from.id)
   end

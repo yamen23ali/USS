@@ -1,0 +1,34 @@
+<% user_id_text = ( origin == 'received_offers' ? 'From' : 'To' ) %>
+<table>
+  
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th> <%= user_id_text %> </th>
+      <th>Status</th>
+      <th>Creation Date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  
+  </tbody>
+    <% @offers.each do |offer| 
+    	user_id = ( origin == 'received_offers' ? offer.from_id : offer.to_id )
+    	show_link = ( origin == 'received_offers' ? show_received_offer_path(offer) : offer_path(offer) )
+    %>
+      <tr>
+        <td><%= offer.id %></td>
+        <td><%= user_id %></td>
+        <td><%= offer.state %></td>
+        <td><%= offer.created_at %></td>
+        <td><%= link_to 'Show', show_link %></td>
+        <td><%= link_to 'Edit', edit_offer_path(offer, origin: origin ) %></td>
+    
+        <% if origin == 'my_offers' %>
+          <td><%= link_to 'Destroy', offer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>

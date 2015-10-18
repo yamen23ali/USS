@@ -1,7 +1,8 @@
 class OffersController < ApplicationController
   
   before_action :authenticate_user!
-  before_action :set_offer, only: [:show, :edit, :update, :destroy,:choose_assets,:show_received]
+  before_action :set_offer, only: [:show, :edit, :update, :destroy,
+                                   :choose_assets,:show_received, :accept, :reject]
 
   load_and_authorize_resource
   
@@ -64,11 +65,28 @@ class OffersController < ApplicationController
 
   def choose_assets
     @offer.choosed_assets = params[:offer][:choosed_assets]
-    redirect_to action: "index"
+    @offer.edit # state machine event
+    
+    if params[:offer][:origin] == 'received_offers' 
+      redirect_to action: "received_offers"
+    else
+      redirect_to action: "index"
+    end
+
   end
 
   def received_offers
     @offers = Offer.where(to_id: current_user.id)
+  end
+
+  def accept
+    @offer.accept
+    redirect_to action: "received_offers"
+  end
+
+  def reject
+    @offer.reject
+    redirect_to action: "received_offers"
   end
 
   private
@@ -78,7 +96,7 @@ class OffersController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def offer_params
-      params.require(:offer).permit(:to_id,:id,choosed_assets:[])
+    def offer_params      
+      params.require(:offer).permit(:to_id, :id, :origin, choosed_assets:[] )
     end
 end
