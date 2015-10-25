@@ -34,7 +34,8 @@ FactoryGirl.define do
   	sequence(:facebook){|n|"https://www.facebook.com/#{n}"}
   	sequence(:twitter){|n|"https://www.twitter.com/#{n}"}
   	sequence(:instagram){|n|"https://www.instagram.com/#{n}"}
-  	sequence(:photo){|n| "C:/test:/#{n}"}
+  	sequence(:photo_file_name){|n| "C:/test:/#{n}"}
+    
   	sequence(:ratings_count){|n|}
   	sequence(:ratings_sum){|n| (n*6)}
   end
@@ -50,7 +51,8 @@ FactoryGirl.define do
     asset
     descriptor
     sequence(:descriptor_value){|n| "Descriptor Value #{n}"}
-    sequence(:photo){|n| "C:/test:/#{n}"}
+    sequence(:photo_file_name){|n| "C:/test:/#{n}"}
+    
   end
 
   factory :offer do

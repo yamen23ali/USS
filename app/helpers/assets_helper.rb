@@ -18,8 +18,14 @@ module AssetsHelper
   end
 
   def asset_preview
-  	asset_photos = @asset.asset_data.map {|data| data.photo if !data.photo.nil? }.compact << "default path"
-  	asset_photos.first
+  	asset_photos = @asset.asset_data.map {|data| data.photo if !data.photo.nil? }
+  	
+    if !asset_photos.empty?
+      asset_photos.first.url(:thumb)
+    else
+      nil
+    end
+    
   end
 
 end

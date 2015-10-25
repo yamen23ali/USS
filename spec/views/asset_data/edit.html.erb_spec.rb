@@ -5,7 +5,6 @@ RSpec.describe "asset_data/edit", :type => :view do
     @asset_data = assign(:asset_data, AssetData.create!(
       :descriptor_id => 1,
       :descriptor_value => "MyString",
-      :photo => "MyString"
     ))
   end
 

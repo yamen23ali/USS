@@ -16,6 +16,5 @@ RSpec.describe "users/show", :type => :view do
     expect(rendered).to match(@user.facebook)
     expect(rendered).to match(@user.twitter)
     expect(rendered).to match(@user.instagram)
-    expect(rendered).to match(@user.photo)
   end
 end

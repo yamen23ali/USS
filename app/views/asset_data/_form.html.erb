@@ -1,4 +1,4 @@
-<%= form_for(@asset_data) do |f| %>
+<%= form_for(@asset_data)  do |f| %>
   <% if @asset_data.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@asset_data.errors.count, "error") %> prohibited this asset_data from being saved:</h2>
@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :photo %><br>
-    <%= f.text_field :photo %>
+    <%= f.file_field :photo %>
   </div>
   <div class="actions">
     <%= f.submit %>

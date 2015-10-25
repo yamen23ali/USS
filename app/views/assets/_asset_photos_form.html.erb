@@ -1,5 +1,12 @@
 <div class="photos">
+
   <%= f.label :photo %><br>
-  <%= f.text_field :photo %>
+ 
+  <% if new_photo %>
+    <%= f.file_field :photo %>
+  <% else %>
+    <%= image_tag f.object.photo.url(:thumb) %>
+  <% end %>
+
   <%= link_to_remove_association "remove", f , { wrapper_class: 'photos' } %>
 </div>

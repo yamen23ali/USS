@@ -17,8 +17,8 @@ RSpec.describe AssetsHelper, :type => :helper do
   
   
   it "Get Asset Descriptors Details" do
-  	asset_data = create_list(:asset_data, 5 ,asset: asset , descriptor: descriptor , photo: nil)
-  	@asset_descriptors = asset.asset_data.select {|data| data.photo.nil? }
+  	asset_data = create_list(:asset_data, 5 ,asset: asset , descriptor: descriptor )
+  	@asset_descriptors = asset.asset_data.select {|data| !data.photo.nil? }
   	expect(helper.get_descriptors_details.count).to eq(5)
   end
 
