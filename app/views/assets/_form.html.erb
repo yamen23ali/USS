@@ -32,9 +32,13 @@
   
 
   <%= f.fields_for :asset_data , @asset_photos do |builder| %>
-    <%= render 'asset_photos_form', :f => builder, :new_photo => false %>
-  <% end %>
+    <% if @asset.id.nil? # new asset is being created %> 
+      <%= render 'asset_photos_form', :f => builder, :new_photo => true %>
+    <% else %>
+      <%= render 'asset_photos_form', :f => builder, :new_photo => false %>
+    <% end %>
 
+  <% end %>
   
   <p>
     <%= link_to_add_association 'add photo', f , :asset_data ,

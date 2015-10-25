@@ -6,20 +6,19 @@ RSpec.describe "asset_data/index", :type => :view do
       AssetData.create!(
         :descriptor_id => 1,
         :descriptor_value => "Descriptor Value",
-        :photo => "Photo"
       ),
       AssetData.create!(
         :descriptor_id => 1,
         :descriptor_value => "Descriptor Value",
-        :photo => "Photo"
       )
     ])
   end
 
   it "renders a list of asset_data" do
+    
     render
     assert_select "tr>td", :text => 1.to_s, :count => 2
     assert_select "tr>td", :text => "Descriptor Value".to_s, :count => 2
-    assert_select "tr>td", :text => "Photo".to_s, :count => 2
+    assert_select "tr>td", :text => "/images/original/missing.png".to_s, :count => 2
   end
 end
