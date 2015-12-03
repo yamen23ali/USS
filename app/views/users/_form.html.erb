@@ -1,62 +1,121 @@
-<%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
-  </div>
-  <div class="field">
-    <%= f.label :tel %><br>
-    <%= f.text_field :tel %>
-  </div>
-  <div class="field">
-    <%= f.label :mobile %><br>
-    <%= f.text_field :mobile %>
-  </div>
-  <div class="field">
-    <%= f.label :address %><br>
-    <%= f.text_field :address %>
-  </div>
-  <div class="field">
-    <%= f.label :contact_email %><br>
-    <%= f.text_field :contact_email %>
-  </div>
-  <div class="field">
-    <%= f.label :facebook %><br>
-    <%= f.text_field :facebook %>
-  </div>
-  <div class="field">
-    <%= f.label :twitter %><br>
-    <%= f.text_field :twitter %>
-  </div>
-  <div class="field">
-    <%= f.label :instagram %><br>
-    <%= f.text_field :instagram %>
-  </div>
-  <div class="field">
-    <%= f.label :photo %><br>
+<br/>
+<div class="container">
+  <div class="row">
     
-    <% if ! @user.photo.nil? %>
-      <%= image_tag @user.photo.url(:thumb) %>
-    <% end %>
+    <div class= "col-lg-6 col-lg-offset-3">
+      <div class="well bs-component">
+        <%= form_for(@user , html: { class: "form-horizontal" } ) do |f| %>
 
-    <%= f.file_field :photo %>
+        <% if @user.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+            
+            <ul>
+              <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <fieldset>
+          <legend>Profile</legend>
+
+          <div class="form-group">
+            <label for="first_name" class="col-lg-2 control-label">First Name</label>
+
+            <div class="col-lg-10">
+              <%= f.text_field :first_name, class: 'form-control' , placeholder: 'First Name' , autofocus: true %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="last_name" class="col-lg-2 control-label">Last Name</label>
+
+            <div class="col-lg-10">
+              <%= f.text_field :last_name, class: 'form-control' , placeholder: 'Last Name' , autofocus: true %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="tel" class="col-lg-2 control-label">Telephone</label>
+
+            <div class="col-lg-10">
+              <%= f.text_field :tel, class: 'form-control' , placeholder: 'Telephone' , autofocus: true %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="mobile" class="col-lg-2 control-label">Mobile</label>
+
+            <div class="col-lg-10">
+              <%= f.text_field :mobile, class: 'form-control' , placeholder: 'Mobile' , autofocus: true %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="address" class="col-lg-2 control-label">Address</label>
+
+            <div class="col-lg-10">
+              <%= f.text_field :address, class: 'form-control' , placeholder: 'Address' , autofocus: true %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="contact_email" class="col-lg-2 control-label">Contact Email</label>
+
+            <div class="col-lg-10">
+              <%= f.email_field :contact_email, class: 'form-control' , placeholder: 'Contact Email' , autofocus: true %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="facebook" class="col-lg-2 control-label">Facebook</label>
+
+            <div class="col-lg-10">
+              <%= f.text_field :facebook, class: 'form-control' , placeholder: 'Facebook' , autofocus: true %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="twitter" class="col-lg-2 control-label">Twitter</label>
+
+            <div class="col-lg-10">
+              <%= f.text_field :twitter, class: 'form-control' , placeholder: 'Twitter' , autofocus: true %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="instagram" class="col-lg-2 control-label">Instagram</label>
+
+            <div class="col-lg-10">
+              <%= f.text_field :instagram, class: 'form-control' , placeholder: 'instagram' , autofocus: true %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="photo" class="col-lg-2 control-label">Photo</label>
+
+            <div class="col-lg-6">
+                <%= f.file_field :photo, class: "filestyle", "data-size" => "sm" %>
+            </div>
+            
+            <div class="col-lg-4">
+              <%= image_tag f.object.photo.url(:thumb) %>
+            </div>
+
+          </div>
+   
+          <div class="form-group">
+
+            <div class="col-lg-10 col-lg-offset-2">
+              <%= f.submit "Update", class: "btn btn-default" %>
+            </div>
+
+          </div>
+        </fieldset>
+        <% end %>
+      </div>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
