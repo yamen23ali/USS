@@ -27,6 +27,7 @@ class AssetsController < ApplicationController
 
   # GET /assets/1/edit
   def edit
+  
   end
 
   # POST /assets
@@ -65,9 +66,10 @@ class AssetsController < ApplicationController
       else
         Asset.where(user_id: current_user.id,id: params[:id]).first #restrict user access to his own assets
       end
-      @asset_descriptors = @asset.asset_data.select {|data| data.photo.nil? }
-      @asset_photos = @asset.asset_data.select {|data| !data.photo.nil? }
-      @sub_categories = SubCategory.where(category_id: @asset.category_id,active: true)
+
+      @asset_descriptors = @asset.descriptors
+      @asset_photos = @asset.photos
+      @sub_categories = @asset.category.sub_categories
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

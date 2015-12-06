@@ -11,4 +11,8 @@ class Category < ActiveRecord::Base
     self.active = true if active.nil?
   end
 
+  def sub_categories
+  	sub_category.where(active: true)
+  end
+
 end

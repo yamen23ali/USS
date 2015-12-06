@@ -1,7 +1,7 @@
 <br/>
 <div class="container">
   <div class="row">
-    <div class= "col-lg-6 col-lg-offset-3">
+    <div class= "col-lg-7 col-lg-offset-2">
       <div class="well bs-component">
         <%= form_for(@asset , html: { class: "form-horizontal" } ) do |f| %>
 
@@ -23,7 +23,7 @@
           <legend>Asset</legend>
 
           <div class="form-group">
-              <label for="category_id" class="col-lg-3 control-label">Category</label>
+              <label for="category_id" class="col-lg-2 control-label">Category</label>
               
               <div class="col-lg-6">
                 <%= f.collection_select :category_id , Category.where(active: true) , :id , :name  ,
@@ -34,7 +34,7 @@
           </div>
 
           <div class="form-group">
-              <label for="sub_category_id" class="col-lg-3 control-label">Sub Category</label>
+              <label for="sub_category_id" class="col-lg-2 control-label">Sub Category</label>
               
               <div class="col-lg-6">
                       <%= f.collection_select :sub_category_id , @sub_categories ||= [], :id , :name  , 
@@ -45,43 +45,54 @@
           </div>
 
           <div class="form-group">
-              <label class="col-lg-3 control-label">Descriptors</label>
+              <label class="col-lg-2 control-label">Photos</label>
               
-              <div class="col-lg-6">
-                
-                <% add_link = link_to_add_association 'add data', f , :asset_data,
-                                :render_options => { :locals => { :add_link => nil } },
-                                :partial => 'asset_descriptors_form' %>
-                
-                <%= f.fields_for :asset_data , @asset_descriptors do |builder| %>
-                  <%= render 'asset_descriptors_form', :f => builder, :add_link => add_link %>
+              <div class="col-lg-10">
+
+                <%= f.fields_for :asset_data , @asset_photos do |builder| %>
+                  <%= render 'asset_photos_form', :f => builder, :new_photo => false %>
                 <% end %>
 
+                <div id = "photos_parent">
+                </div> 
+
+                <div>
+                  <%= link_to_add_association 'add photo', f, :asset_data,
+                                :render_options => {  :locals => { :new_photo => true } },
+                                :partial => 'asset_photos_form',
+                                "data-association-insertion-node" => "#photos_parent",
+                                "data-association-insertion-method" => "append" %>
+                </div>
+
+                
+
               </div>
           </div>
 
           <div class="form-group">
-              <label class="col-lg-3 control-label">Photos</label>
+              <label class="col-lg-2 control-label">Descriptors</label>
               
-              <div class="col-lg-6">
-                      <%= f.fields_for :asset_data , @asset_photos do |builder| %>
-                        <% if @asset.id.nil? # new asset is being created %> 
-                          <%= render 'asset_photos_form', :f => builder, :new_photo => true %>
-                        <% else %>
-                          <%= render 'asset_photos_form', :f => builder, :new_photo => false %>
-                        <% end %>
-                      <% end %>
+              <div class="col-lg-10">
 
-                      <p>
-                        <%= link_to_add_association 'add photo', f , :asset_data ,
-                                :render_options => { :locals => { :new_photo => true } },
-                                :partial => 'asset_photos_form' %>
-                      </p>
+                <%= f.fields_for :asset_data , @asset_descriptors do |builder| %>
+                  <%= render 'asset_descriptors_form', :f => builder %>
+                <% end %>
+
+                <div id = "descriptors_parent">
+                </div> 
+
+                <div>
+                  <%= link_to_add_association icon("plus") , f , :asset_data,
+                                :partial => 'asset_descriptors_form',
+                                "data-association-insertion-node" => "#descriptors_parent",
+                                "data-association-insertion-method" => "append" %>
+                </div>
+
               </div>
           </div>
 
           <div class="form-group">
-              <label class="col-lg-3 control-label">Tags</label>
+              <label class="col-lg-2 control-label">Tags</label>
               
               <div class="col-lg-6">
                     <%= f.text_area(:tag_list, :size => "50x3") %>
@@ -108,3 +119,6 @@
     </div>
   </div>
 </div>
+
+<%= form_for(@asset , html: { class: "form-horizontal dropzone" } ) do |f| %>
+  <%end%>
