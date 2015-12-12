@@ -19,7 +19,7 @@
 
 <p>
   <strong>Photos:</strong>
-  <% @asset_photos.each do |asset_data| %>
+  <% @asset.photos.each do |asset_data| %>
     <%= render 'asset_photo_show', asset_data: asset_data %>
   <% end %>
 </p>

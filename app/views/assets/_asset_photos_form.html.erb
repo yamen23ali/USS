@@ -1,14 +1,11 @@
 <div class="row photos">
+    <div class="col-lg-8 existing">
 
-  <div class="col-lg-8">
+       <div class = "photo_info" data-photo-id = <%= f.object.id %> data-asset-id = <%= @asset.id %> >
+       </div>
+      <%= image_tag f.object.photo.url(:medium) %>
 
-    <% if new_photo %>
-      <%= f.file_field :photo , class: "filestyle", "data-size" => "sm" %>
-    <% else %>
-      <%= image_tag f.object.photo.url(:thumb) %>
-    <% end %>
-    
-    <%= link_to_remove_association icon("remove"), f, { wrapper_class: 'photos' } %>
-  </div>
-
+      <%= link_to_remove_association '', f %>
+      
+    </div>
 </div>

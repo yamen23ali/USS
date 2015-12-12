@@ -28,6 +28,20 @@ module AssetsHelper
     
   end
 
+  def existing_photos( photo_index, f )
+
+    if @asset.photos.length > photo_index
+      
+      return if  @asset.photos[ photo_index ].id.nil?
+
+      f.fields_for :asset_data , @asset.photos[ photo_index ] do |builder|
+        render 'asset_photos_form', :f => builder
+      end
+
+    end
+
+  end
+
   def icon(type)
     
     case type

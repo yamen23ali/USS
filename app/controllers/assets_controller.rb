@@ -1,7 +1,7 @@
 class AssetsController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :set_asset, only: [:show, :edit, :update, :destroy]
+  before_action :set_asset, only: [:show, :edit, :update, :destroy, :destroy_asset_data]
 
   load_and_authorize_resource
   
@@ -27,7 +27,6 @@ class AssetsController < ApplicationController
 
   # GET /assets/1/edit
   def edit
-  
   end
 
   # POST /assets
@@ -58,23 +57,29 @@ class AssetsController < ApplicationController
     redirect_to assets_url, notice: 'Asset was successfully destroyed.'
   end
 
+  # DELETE /assets/1/2
+  def destroy_asset_data
+    @asset.asset_data.where(id: params[ :asset_data_id ]).destroy_all
+
+    respond_with '{"success":1}'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_asset
+
       @asset = if current_user.is_admin? 
-        Asset.find(params[:id])
+        Asset.find( params[:id] )
       else
-        Asset.where(user_id: current_user.id,id: params[:id]).first #restrict user access to his own assets
+        Asset.where( user_id: current_user.id,id: params[:id] ).first #restrict user access to his own assets
       end
 
       @asset_descriptors = @asset.descriptors
-      @asset_photos = @asset.photos
       @sub_categories = @asset.category.sub_categories
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def asset_params
-      params.require(:asset).permit(:category_id, :sub_category_id , :tag_list ,
-                                    asset_data_attributes: [:id, :photo , :descriptor_id , :descriptor_value , :_destroy])
+      params.require(:asset).permit(:category_id, :sub_category_id , :tag_list , asset_data_attributes: [:id, :photo , :descriptor_id , :descriptor_value , :_destroy])
     end
 end

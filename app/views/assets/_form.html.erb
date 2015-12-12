@@ -1,7 +1,7 @@
 <br/>
 <div class="container">
   <div class="row">
-    <div class= "col-lg-7 col-lg-offset-2">
+    <div class= "col-lg-9 col-lg-offset-2">
       <div class="well bs-component">
         <%= form_for(@asset , html: { class: "form-horizontal" } ) do |f| %>
 
@@ -44,27 +44,14 @@
               </div>
           </div>
 
-          <div class="form-group">
+          <div class="form-group photos_parent">
               <label class="col-lg-2 control-label">Photos</label>
               
               <div class="col-lg-10">
 
-                <%= f.fields_for :asset_data , @asset_photos do |builder| %>
-                  <%= render 'asset_photos_form', :f => builder, :new_photo => false %>
+                <% for row_num in 0..1 %>
+                   <%= render 'photos_row', :f => f, :row_num => row_num %>
                 <% end %>
-
-                <div id = "photos_parent">
-                </div> 
-
-                <div>
-                  <%= link_to_add_association 'add photo', f, :asset_data,
-                                :render_options => {  :locals => { :new_photo => true } },
-                                :partial => 'asset_photos_form',
-                                "data-association-insertion-node" => "#photos_parent",
-                                "data-association-insertion-method" => "append" %>
-                </div>
-
-                
 
               </div>
           </div>
@@ -120,5 +107,6 @@
   </div>
 </div>
 
-<%= form_for(@asset , html: { class: "form-horizontal dropzone" } ) do |f| %>
-  <%end%>
+<%= javascript_include_tag('test.js') %>
+
+
