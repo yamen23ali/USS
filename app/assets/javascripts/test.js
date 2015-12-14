@@ -9,8 +9,6 @@ $(".choose_photo").change(function ()
 
      var url = '/assets/' + asset_id + '/' + photo_id;
 
-     alert(url);
-
      $.ajax({
           url: url,
           type: 'DELETE',
@@ -19,8 +17,24 @@ $(".choose_photo").change(function ()
           beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
 
           success: function(result) {
-               alert("Done!!");
-               //alert(result);
           }
      });
+});
+
+$(".fileinput-exists").click( function ()
+{
+     var photo = $(".missing_photo_block").clone();
+
+     var parent = $(this).parents(".fileinput-exists").find(".thumbnail");
+
+     //var photo_info = $( parent ).find(".col-lg-11").find(".thumbnail");
+
+     $(photo).css('display', 'block');
+
+     
+     $this = $(this);
+
+     setTimeout(function(){
+               $(photo).appendTo( $( parent )); 
+          },30);
 });
