@@ -30,13 +30,10 @@ module AssetsHelper
 
   def existing_photos( photo_index, f )
 
-    if @asset.photos.length > photo_index
-
-      f.fields_for :asset_data , @asset.photos[ photo_index ] do |builder|
-        render 'asset_photos_form', :f => builder
-      end
+    f.fields_for :asset_data , @asset.photos[ photo_index ] do |builder|
+      render 'asset_photos_form', :f => builder
     end
-
+    
   end
 
   def missing_photo_block( f )

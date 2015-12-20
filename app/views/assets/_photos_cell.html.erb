@@ -1,14 +1,26 @@
-<div class="fileinput fileinput-new" data-provides="fileinput">
+<% current_photo = existing_photos( photo_index, f ) 
+
+   photo_class = "fileinput fileinput-exists"
+   
+   if current_photo.include? "missing"
+      photo_class = "fileinput fileinput-new"
+   end
+%>
+
+<div class = "<%= photo_class %>" data-provides="fileinput">
 
   <div class = "col-lg-11">
     
-    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="background-color: transparent">
-      <%= existing_photos( photo_index, f ) %>
+    <div class="fileinput-preview thumbnail" data-trigger="fileinput" 
+         style="background-color: transparent">
+      <%= current_photo %>
     </div>
   </div>
-  
-  <div class = "col-lg-1">
-      <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+
+  <div class = "col-lg-1 col-lg-offset-4">
+      <a href="#" class="btn btn-default fileinput-exists my-remove" data-dismiss="fileinput">
+        <%= icon("remove") %>
+      </a>
   </div>
   
   <div>

@@ -1,3 +1,4 @@
+
 <br/>
 <div class="container">
   <div class="row">
@@ -44,18 +45,6 @@
               </div>
           </div>
 
-          <div class="form-group photos_parent">
-              <label class="col-lg-2 control-label">Photos</label>
-              
-              <div class="col-lg-10">
-
-                <% for row_num in 0..1 %>
-                   <%= render 'photos_row', :f => f, :row_num => row_num %>
-                <% end %>
-
-              </div>
-          </div>
-
           <div class="form-group">
               <label class="col-lg-2 control-label">Descriptors</label>
               
@@ -77,6 +66,19 @@
 
               </div>
           </div>
+
+          <div class="form-group photos_parent">
+              <label class="col-lg-2 control-label">Photos</label>
+              
+              <div class="col-lg-10">
+
+                <% for row_num in 0..1 %>
+                   <%= render 'photos_row', :f => f, :row_num => row_num %>
+                <% end %>
+
+              </div>
+          </div>
+
 
           <div class="form-group">
               <label class="col-lg-2 control-label">Tags</label>
@@ -111,6 +113,4 @@
   </div>
 </div>
 
-<%= javascript_include_tag('test.js') %>
-
-
+<%= javascript_include_tag('asset_form.js') %>

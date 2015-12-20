@@ -22,7 +22,7 @@ class AssetsController < ApplicationController
   def new
     @asset = Asset.new
     @asset_descriptors = @asset.asset_data.build
-    @asset_photos = @asset.asset_data.build
+    #@asset_photos = @asset.asset_data.build
   end
 
   # GET /assets/1/edit
