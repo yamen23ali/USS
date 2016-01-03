@@ -1,15 +1,18 @@
-<div>Photo : <%= image_tag asset_preview %></div>
-
-<div>
-  Category : <%= category %> <br>
-  Sub Category :<%= sub_category %> <br>
-</div>
-
-<div>
-	<%= link_to 'Show', @asset %>
-    <%= link_to 'Edit', edit_asset_path(@asset) %>
-    <%= link_to 'Destroy', @asset, method: :delete, data: { confirm: 'Are you sure?' } %>
-</div>
-<br>
+<tr>
+  <td><%= category %></td>
+  <td><%= sub_category %></td>
+  <td>
+    <ul>
+      <% descriptors.each do | descriptor | %>
+        <li> <%= descriptor %> </li>
+      <% end %>
+    </ul>
+   </td>
+  <td> <%= image_tag asset_preview %> </td>
+  <td> <%= tags %> </td>
+  <td> <%= link_to icon("show"), @asset %> </td>
+  <td> <%= link_to icon("edit"), edit_asset_path(@asset) %> </td>
+  <td> <%= link_to icon("remove"), @asset, method: :delete, data: { confirm: 'Are you sure?' } %> </td>
+</tr>
  
         
