@@ -47,3 +47,9 @@ function removePhoto( photo_info )
           }
      });
 }
+
+$(document).ready(function() {
+    $('.bxslider').bxSlider({
+     auto: true,
+     });
+});
