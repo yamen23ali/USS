@@ -31,14 +31,11 @@ module AssetsHelper
   end
 
   def asset_preview
-  	asset_photos = @asset.asset_data.map {|data| data.photo if !data.photo.nil? }
-  	
-    if !asset_photos.empty?
-      asset_photos.first.url(:thumb)
+    if !@asset.photos.empty?
+      @asset.photos.first.photo.url(:thumb) 
     else
-      nil
+      "mine/missing200.png"
     end
-    
   end
 
   def existing_photos( photo_index, f )
