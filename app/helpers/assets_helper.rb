@@ -34,7 +34,7 @@ module AssetsHelper
     if !@asset.photos.empty?
       @asset.photos.first.photo.url(:thumb) 
     else
-      "mine/missing200.png"
+      "mine/missing100.png"
     end
   end
 
