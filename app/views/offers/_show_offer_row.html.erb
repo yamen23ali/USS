@@ -1,0 +1,13 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Category</th>
+      <th>Descriptors</th>
+      <th></th>
+    </tr>
+  </thead>
+  <% assets.each do |asset| %>
+    <%= render_asset_info(asset) %>
+  <% end %>
+</table>
