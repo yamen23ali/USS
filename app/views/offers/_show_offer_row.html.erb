@@ -7,7 +7,11 @@
       <th></th>
     </tr>
   </thead>
-  <% assets.each do |asset| %>
-    <%= render_asset_info(asset) %>
-  <% end %>
+  <tbody>
+    <% assets.each do |asset| %>
+      <tr>
+        <%= render_asset_info(asset) %>
+      </tr>
+    <% end %>
+  </tbody>
 </table>

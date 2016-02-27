@@ -1,23 +1,47 @@
-<%= form_for(@offer) do |f| %>
-  <% if @offer.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@offer.errors.count, "error") %> prohibited this offer from being saved:</h2>
+<div class="container">
+  <div class="row">
+    <div class= "col-lg-4 col-lg-offset-4">
+      <div class="well bs-component">
+        <%= form_for(@offer) do |f| %>
+          <div class="form-group">
+            <% if @offer.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(@offer.errors.count, "error") %> prohibited this offer from being saved:</h2>
+                <ul>
+                  <% @offer.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+          </div>
 
-      <ul>
-      <% @offer.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <fieldset>
+
+            <legend>Make Offer To</legend>
+
+            <div class="form-group">
+
+              <div class="col-lg-2 col-lg-offset-1">
+                <%= f.select :to_id , options_for_select(@users),
+                    { :include_blank => "Please select..." },
+                    { :class => "selectpicker", "data-style" => "btn-warning", 
+                      "data-live-search" => "true" } %>
+              </div>
+            </div>
+
+            <br/> <br/>
+
+            <div class="form-group">
+              <div class="col-lg-1 col-lg-offset-4">
+                <%= f.submit "Next", class: "btn btn-success" %>  
+              </div>
+            </div>
+
+          </fieldset>
+
       <% end %>
-      </ul>
     </div>
-  <% end %>
-
-  
-<div class="field">
-    <%= f.label :to_id %><br>
-    <%= f.select :to_id , options_for_select(@users) %>
   </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+ </div>
+</div>

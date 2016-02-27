@@ -25,9 +25,9 @@
         <td><%= offer.created_at %></td>
 
         <td> <%= link_to icon("show"), show_link %> </td>
-        <td> <%= link_to icon("edit"), edit_offer_path(offer, origin: origin ) %> </td>
     
         <% if origin == 'my_offers' %>
+          <td> <%= link_to icon("edit"), edit_offer_path(offer, origin: origin ) %> </td>
           <td><%= link_to icon("remove"), offer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
       </tr>
@@ -35,4 +35,13 @@
   </tbody>
 
   </table>
+
+  <br>
+
+  <div class="form-group">
+    <div class="col-lg-1">
+       <%= link_to 'New Offer', new_offer_path, class: "btn btn-success" %>
+    </div>
+  </div>
+
 </div>
