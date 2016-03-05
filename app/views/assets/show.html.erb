@@ -1,7 +1,8 @@
+<%= javascript_include_tag('asset_form.js') %>
 <br/>
 <div class="container">
   <div class="row">
-    <div class= "col-lg-9 col-lg-offset-2">
+    <div class= "col-lg-7 col-lg-offset-2">
       <div class="well bs-component ">
 
           <legend>Asset</legend>
@@ -44,24 +45,36 @@
               </div>
           </div>
 
-          <div class="form-group ">
+          <% if @asset.photos.count > 0 %>
+            <div class="form-group ">
               <div class="col-lg-5 col-lg-offset-3 ">
-                  <ul class="bxslider">
+                 <ul class="bxslider">
                     <% @asset.photos.each do | photo | %>
                       <li> <%= image_tag photo.photo.url(:medium), :alt => '' %> </li>
                     <% end %>
                   </ul>
               </div>
+            </div>
+          <%end%>
+
+          <br/>
+
+          <div class="form-group">
+            <div class="col-lg-1">
+              <%= link_to 'Edit', edit_asset_path(@asset), class: "btn btn-success" %>
+            </div>
+            &nbsp;
+
+            <div class="col-lg-1">
+              <%= link_to 'Back', assets_path, class: "btn btn-danger" %>
+            </div>
+
           </div>
 
         </div>
         
       </div>
     </div>
+
   </div>
 </div>
-
-<%= link_to 'Edit', edit_asset_path(@asset) %> |
-<%= link_to 'Back', assets_path %>
-
-<%= javascript_include_tag('asset_form.js') %>
