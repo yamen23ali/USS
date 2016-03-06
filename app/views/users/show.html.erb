@@ -1,53 +1,77 @@
-<p id="notice"><%= notice %></p>
+<br/>
+<div class="container">
 
-<p>
-  <strong>First name:</strong>
-  <%= @user.first_name %>
-</p>
+<div class="well bs-component">
+  
+  <div class="form-group">
+    <div>
+      <%= image_tag @user.photo.url(:thumb) %>
+    </div>
+  </div>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @user.last_name %>
-</p>
+  <!--=================== First Row =====================-->
+  <div class="form-group">
+    <div class="col-lg-4">
+       <label for="first_name" class="control-label">First Name :</label>
+       <label class="control-label"><%= @user.first_name %></label>
+    </div>
 
-<p>
-  <strong>Tel:</strong>
-  <%= @user.tel %>
-</p>
+    <div class="col-lg-4">
+       <label for="last_name" class="control-label">Last Name :</label>
+       <label class="control-label"><%= @user.last_name %></label>
+    </div>
 
-<p>
-  <strong>Mobile:</strong>
-  <%= @user.mobile %>
-</p>
+    <div class="col-lg-4">
+       <label for="tel" class="control-label">Tel :</label>
+       <label class="control-label"><%= @user.tel %></label>
+    </div>
+  </div>
+  <br/>
+  <!--=================== First Row =====================-->
 
-<p>
-  <strong>Address:</strong>
-  <%= @user.address %>
-</p>
+  <!--=================== Second Row =====================-->
+  <div class="form-group">
+    <div class="col-lg-4">
+       <label for="mobile" class="control-label">Mobile :</label>
+       <label class="control-label"><%= @user.mobile %></label>
+    </div>
 
-<p>
-  <strong>Contact email:</strong>
-  <%= @user.contact_email %>
-</p>
+    <div class="col-lg-4">
+       <label for="address" class="control-label">Address :</label>
+       <label class="control-label"><%= @user.address %></label>
+    </div>
 
-<p>
-  <strong>Facebook:</strong>
-  <%= @user.facebook %>
-</p>
+    <div class="col-lg-4">
+       <label for="contact_email" class="control-label">Contact Email :</label>
+       <label class="control-label"><%= @user.contact_email %></label>
+    </div>
+  </div>
+  <br/>
+  <!--=================== Second Row =====================-->
 
-<p>
-  <strong>Twitter:</strong>
-  <%= @user.twitter %>
-</p>
+  <!--=================== Third Row =====================-->
+  <div class="form-group">
+    <div class="col-lg-4">
+       <label for="facebook" class="control-label">Facebook :</label>
+       <label class="control-label"><%= @user.facebook %></label>
+    </div>
 
-<p>
-  <strong>Instagram:</strong>
-  <%= @user.instagram %>
-</p>
+    <div class="col-lg-4">
+       <label for="twitter" class="control-label">Twitter :</label>
+       <label class="control-label"><%= @user.twitter %></label>
+    </div>
 
-<p>
-  <strong>Photo:</strong>
-  <%= image_tag @user.photo.url(:thumb) %>
-</p>
+    <div class="col-lg-4">
+       <label for="instagram" class="control-label">Instagram :</label>
+       <label class="control-label"><%= @user.instagram %></label>
+    </div>
+  </div>
+  <br/>
 
-<%= link_to 'Edit', edit_user_path(@user) %>
+  <div class="form-group">
+    <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-success" %>
+    <%= link_to 'Back', root_path, class: "btn btn-danger" %>
+  </div>
+  <!--=================== Third Row =====================-->
+</div>
+</div>

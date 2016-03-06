@@ -1,2 +1,6 @@
-<%= render_asset_info(asset) %>
-<%= f.check_box(att_name , { :multiple => true , :checked => checked }, asset.id, nil ) %>
+<tr>
+ <%= render_asset_info(asset) %>
+ <td>
+  <%= f.check_box(att_name , { :multiple => true , :checked => checked }, asset.id, nil ) %>
+ </td>
+</tr>

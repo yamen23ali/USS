@@ -1,14 +1,28 @@
-<p id="notice"><%= notice %></p>
+<br/>
+<div class="container">
+ 
+ <div class="well bs-component col-lg-4 col-lg-offset-4">
 
-<p>
-  <strong>Name:</strong>
-  <%= @descriptor.name %>
-</p>
+ <fieldset>
+   <legend>Descriptor</legend>
 
-<p>
-  <strong>Active:</strong>
-  <%= @descriptor.active %>
-</p>
+  <div class="form-group">
+       <label for="name" class="control-label">Name :</label>
+       <label class="control-label"><%= @descriptor.name %></label>
+  </div>
 
-<%= link_to 'Edit', edit_descriptor_path(@descriptor) %> |
-<%= link_to 'Back', descriptors_path %>
+  <div class="form-group">
+       <label for="name" class="control-label">Active :</label>
+       <label class="control-label"><%= @descriptor.active %></label>
+  </div>
+
+  <div class="form-group">
+    <%= link_to 'Edit', edit_descriptor_path(@descriptor), class: "btn btn-success" %>
+    <%= link_to 'Back', descriptors_path, class: "btn btn-danger" %>
+  </div>
+
+  </fieldset>
+
+ </div>
+</div>
+

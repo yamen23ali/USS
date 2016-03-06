@@ -1,48 +1,45 @@
-<%= form_for(@offer , :url => choose_assets_offer_path(@offer) , :method => :POST ) do |f| %>
+<div class="container">
+<%= form_for(@offer , :url => choose_assets_offer_path(@offer) , html: { class: "form-horizontal" }, :method => :POST ) do |f| %>
   
   <% 
      origin = params[:origin]
      from_assets = ( origin == 'received_offers' ? @offer.to_assets : @offer.from_assets ) 
      to_assets = ( origin == 'received_offers' ? @offer.from_assets : @offer.to_assets ) %>
-  
-  <% if @offer.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@offer.errors.count, "error") %> prohibited this offer from being saved:</h2>
 
-      <ul>
-      <% @offer.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <table>
-   
+    <table class="table table-striped">
     <thead>
       <tr>
-        <th>Give</th>
-        <th>Receive</th>
+        <th colspan="5" style="text-align:center; vertical-align:middle;">Give</th>
+        <th colspan="5" style="text-align:center; vertical-align:middle;">Receive</th>
       </tr>
     </thead>
 
     <tbody>
       <tr>
-        <td>
-          <%= render 'assets' , :f => f , :assets => from_assets , :att_name => "choosed_assets" %>
+        <td colspan="5">
+            <%= render 'assets' , :f => f , :assets => from_assets , :att_name => "choosed_assets" %>
         </td>
 
-        <td>
-          <%= render 'assets' , :f => f , :assets => to_assets , :att_name => "choosed_assets" %>
+        <td colspan="5" style="border-left: 1px solid black">
+            <%= render 'assets' , :f => f , :assets => to_assets , :att_name => "choosed_assets" %>
         </td>
       </tr>
     </tbody>
 
-  <table>
+  </table>
 
   <%= f.hidden_field :origin, :value => origin %>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-group">
+    <div class="col-lg-1 col-lg-offset-5">
+       <%= f.submit get_caption(), class: "btn btn-success" %>  
+    </div>
+  
+    <div class="col-lg-1 col-lg-offset-1">
+       <%= link_to "Cancel", cancel_path , class: "btn btn-danger" %>
+    </div>
+
   </div>
+
 <% end %>
+  </div>

@@ -1,10 +1,12 @@
-<h1>Update offer</h1>
-
-<%= render 'choose_assets_form' %>
-
 <% if params['origin'] == 'received_offers' %>
-  <%= link_to 'Back', received_offers_offers_path %>
+  <% cancel_path =  received_offers_offers_path %>
 <% else %>
-  <%= link_to 'Back', offers_path %>
+  <% cancel_path = offers_path %>
 <% end %>
+
+
+
+<%= render 'choose_assets_form', cancel_path: cancel_path %>
+
+
 

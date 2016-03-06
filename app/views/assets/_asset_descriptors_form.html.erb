@@ -1,7 +1,15 @@
-<div class="descriptors">
-  <%= f.label :descriptor_id %><br>
-  <%= f.collection_select :descriptor_id , Descriptor.where(active: true) , :id , :name  ,
-     :include_blank => "Please select..." %>
-  <%= f.text_field :descriptor_value %>
-  <%= link_to_remove_association "remove", f , { wrapper_class: 'descriptors' } %>
+<div class="row descriptors" style="margin-top: 3px">
+  <div class="col-lg-6">
+    <%= f.collection_select :descriptor_id , Descriptor.where(active: true) , :id , :name  ,
+        { :include_blank => "Please select..." },
+        { :class => "form-control" }
+     %>
+  </div>
+
+  <div class="col-lg-6" style="margin-top: 1px">
+    <%= f.text_field :descriptor_value %>
+    &nbsp; <%= link_to_remove_association icon("remove"), f , { wrapper_class: 'descriptors' } %>
+  </div>
+
 </div>
+

@@ -9,4 +9,12 @@ module OffersHelper
   	render :partial => 'assets/asset_info'
   end
 
+  def get_caption()
+  	 if @offer.state == "new"
+  	 	"Create"
+  	 else
+  	 	"Update"
+  	 end
+  end
+
 end

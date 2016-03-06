@@ -1,54 +1,116 @@
-<%= form_for(@asset) do |f| %>
-  <% if @asset.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@asset.errors.count, "error") %> prohibited this asset from being saved:</h2>
 
-      <ul>
-      <% @asset.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<br/>
+<div class="container">
+  <div class="row">
+    <div class= "col-lg-9 col-lg-offset-2">
+      <div class="well bs-component">
+        <%= form_for(@asset , html: { class: "form-horizontal" } ) do |f| %>
+
+        <% if @asset.errors.any? %>
+          <div id="error_explanation">
+            <h2>
+              <%= pluralize(@asset.errors.count, "error") %> prohibited this Asset from being saved:
+            </h2>
+
+            <ul>
+              <% @asset.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <fieldset>
+          <legend>Asset</legend>
+
+          <div class="form-group">
+              <label for="category_id" class="col-lg-2 control-label">Category</label>
+              
+              <div class="col-lg-6">
+                <%= f.collection_select :category_id , Category.where(active: true) , :id , :name  ,
+                    { :include_blank => "Please select..." },
+                    { :class => "selectpicker", "data-style" => "btn-warning", 
+                      "data-live-search" => "true" }  %>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label for="sub_category_id" class="col-lg-2 control-label">Sub Category</label>
+              
+              <div class="col-lg-6">
+                      <%= f.collection_select :sub_category_id , @sub_categories ||= [], :id , :name  , 
+                          { :include_blank => "Please select..." } , 
+                          { :class => "selectpicker", "data-style" => "btn-warning", 
+                            "data-live-search" => "true" } %>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label class="col-lg-2 control-label">Descriptors</label>
+              
+              <div class="col-lg-10">
+
+                <%= f.fields_for :asset_data , @asset_descriptors do |builder| %>
+                  <%= render 'asset_descriptors_form', :f => builder %>
+                <% end %>
+
+                <div id = "descriptors_parent">
+                </div> 
+
+                <div>
+                  <%= link_to_add_association icon("plus") , f , :asset_data,
+                                :partial => 'asset_descriptors_form',
+                                "data-association-insertion-node" => "#descriptors_parent",
+                                "data-association-insertion-method" => "append" %>
+                </div>
+
+              </div>
+          </div>
+
+          <div class="form-group photos_parent">
+              <label class="col-lg-2 control-label">Photos</label>
+              
+              <div class="col-lg-10">
+
+                <% for row_num in 0..1 %>
+                   <%= render 'photos_row', :f => f, :row_num => row_num %>
+                <% end %>
+
+              </div>
+          </div>
+
+
+          <div class="form-group">
+              <label class="col-lg-2 control-label">Tags</label>
+              
+              <div class="col-lg-6">
+                    <%= f.text_area(:tag_list, :size => "50x3") %>
+              </div>
+          </div>
+   
+          <div class="form-group">
+            <div class="col-lg-1 col-lg-offset-4">
+              <% if @asset.id.nil? %>
+                <%= f.submit "Create", class: "btn btn-success" %>  
+              <% else %>
+                <%= f.submit "Update", class: "btn btn-success" %>  
+              <% end %>
+            </div>
+
+            <div class="col-lg-5 col-lg-offset-2">
+              <%= button_to "Cancel", assets_path , class: "btn btn-danger" %>
+            </div>
+          </div>
+
+          <div class="missing_photo_block" style="display: none">
+            <%= missing_photo_block( f ) %>
+          </div>
+
+        </fieldset>
+        <% end %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :category_id %><br>
-    <%= f.collection_select :category_id , Category.where(active: true) , :id , :name  ,
-        :include_blank => "Please select..." %>
   </div>
-  <div class="field">
-    <%= f.label :sub_category_id %><br>
-    <%= f.collection_select :sub_category_id , @sub_categories ||= [], :id , :name  , 
-        :include_blank => "Please select..."%>
-  </div>
-  
-  <br>
-  
-  <%= f.fields_for :asset_data , @asset_descriptors do |builder| %>
-    <%= render 'asset_descriptors_form', :f => builder %>
-  <% end %>
+</div>
 
-  <p><%= link_to_add_association 'add data', f , :asset_data , :partial => 'asset_descriptors_form' %></p>
-  
-
-  <%= f.fields_for :asset_data , @asset_photos do |builder| %>
-    <% if @asset.id.nil? # new asset is being created %> 
-      <%= render 'asset_photos_form', :f => builder, :new_photo => true %>
-    <% else %>
-      <%= render 'asset_photos_form', :f => builder, :new_photo => false %>
-    <% end %>
-
-  <% end %>
-  
-  <p>
-    <%= link_to_add_association 'add photo', f , :asset_data ,
-                                :render_options => { :locals => { :new_photo => true } },
-                                :partial => 'asset_photos_form' %>
-  </p>
-
-   <%= f.text_area(:tag_list, :size => "50x10") %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+<%= javascript_include_tag('asset_form.js') %>

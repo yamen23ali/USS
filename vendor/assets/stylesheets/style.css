@@ -341,3 +341,22 @@ you can use the generic selector below, but it's slower:
 .icon-dribbble:before {
 	content: "\e063";
 }
+.choose_photo{
+	visibility: hidden;
+}
+
+.navbar{
+	border-bottom: 5px solid #c52d2f; 
+}
+
+
+html, body {
+  height: 100%;
+  background-color: #fff3e6;
+}
+
+#wrap {
+  min-height: 100%;
+  padding-top: 100px;
+
+}

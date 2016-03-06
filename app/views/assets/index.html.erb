@@ -1,15 +1,31 @@
-<h1>Listing assets</h1>
-
-<table>
-  <tbody>
-    <% @assets.each do |asset| @asset = asset %>
+<div class="container">
+  <table class="table table-striped">
+    
+    <thead>
       <tr>
-        <td><%= render "row" %></td>
+        <th>Category</th>
+        <th>Sub Category</th>
+        <th>Descriptors</th>
+        <th>Photos</th>
+        <th>Tags</th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+    	<% @assets.each do |asset| @asset = asset %>
+           <%= render "row" %>
+        <% end %>
+    </tbody>
 
-<%= link_to 'New Asset', new_asset_path %>
+  </table>
+
+  <div class="form-group">
+    <div class="col-lg-1">
+       <%= link_to 'New Asset', new_asset_path, class: "btn btn-success" %>
+    </div>
+  </div>
+
+</div>

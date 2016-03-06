@@ -1,0 +1,24 @@
+<div class="row photos">
+
+    <% for cell_num in 0..2 %>
+      <% id = row_num.to_s + cell_num.to_s 
+         photo_index = cell_num + ( row_num * 3)
+      %>
+
+      <div class="col-lg-4">
+
+        <%= f.fields_for :asset_data , @asset.asset_data.build do |builder| %>             
+
+          <% input_element = builder.file_field( :photo , id: id, class: "choose_photo" ) %>
+
+          <%= render 'photos_cell', :input_element => input_element, 
+              :photo_index => photo_index, :f => f  %>
+
+        <% end %>
+
+      </div>
+    <% end %>
+
+</div>
+
+      

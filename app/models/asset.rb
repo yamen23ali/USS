@@ -25,5 +25,13 @@ class Asset < ActiveRecord::Base
   def reject_asset_data(attributes)
     attributes['descriptor_id'].blank? && attributes['photo'].blank?
   end
+
+  def descriptors
+    asset_data.select {|data| !data.descriptor.nil? }
+  end
+
+  def photos
+    asset_data.select {|data| data.descriptor.nil? }
+  end
   
 end

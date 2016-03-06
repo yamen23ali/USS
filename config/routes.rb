@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  delete '/assets/:id/:asset_data_id' , to: 'assets#destroy_asset_data'
+
   resources :users  , except: [ :create , :new ] do
     collection do
       get 'index'
@@ -19,7 +21,9 @@ Rails.application.routes.draw do
   end
   
   resources :descriptors
-  resources :assets
+  
+  resources :assets 
+
   resources :asset_data
   
   resources :offers do
