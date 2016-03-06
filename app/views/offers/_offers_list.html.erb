@@ -38,10 +38,12 @@
 
   <br>
 
-  <div class="form-group">
-    <div class="col-lg-1">
-       <%= link_to 'New Offer', new_offer_path, class: "btn btn-success" %>
+  <% if origin == 'my_offers' %>
+    <div class="form-group">
+      <div class="col-lg-1">
+        <%= link_to 'New Offer', new_offer_path, class: "btn btn-success" %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
 </div>
