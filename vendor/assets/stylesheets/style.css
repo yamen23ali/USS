@@ -369,3 +369,17 @@ html, body {
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
+
+.item_search_bar{
+	vertical-align: middle;
+	text-align: center;
+}
+
+.search_bar{
+	background-color: #ebebe0;
+	text-align: center;
+	margin-bottom: 30px;
+	border: 2px solid;
+    border-radius: 25px;
+    padding: 10px;
+}
