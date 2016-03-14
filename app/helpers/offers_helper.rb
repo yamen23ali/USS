@@ -17,4 +17,13 @@ module OffersHelper
   	 end
   end
 
+  def contact_email(offer, user)
+
+    if offer.state == "accepted"
+        user.contact_email.blank? ? user.email : user.contact_email
+    else
+        "Hidden until the offer is accepted"
+     end
+  end
+
 end
