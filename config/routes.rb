@@ -26,9 +26,11 @@ Rails.application.routes.draw do
 
   resources :asset_data
   
+  match 'offers/choose_assets' => 'offers#choose_assets', :via => :post
+
   resources :offers do
     member do
-      post 'choose_assets'
+      #post 'choose_assets'
       get 'show_received'
       put 'accept'
       put 'reject'

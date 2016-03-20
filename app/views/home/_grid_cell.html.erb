@@ -1,0 +1,23 @@
+<div class="item  col-xs-4 col-lg-4">
+  <div class="thumbnail">
+
+
+    <div class="item_image">
+      <%= image_tag asset_preview  , onerror: "this.onerror=null;this.src='../../assets/mine/missing100.png'"%>
+    </div>
+
+    <div class="caption">
+       <h4 class="group inner list-group-item-heading">Product title</h4>
+       <p class="group inner list-group-item-text"></p>
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <p class="lead"> <%= @asset.user.full_name %>&nbsp; </p>
+            </div>
+            
+            <div class="col-xs-12 col-md-6">
+              <%= link_to "Make Offer", offers_path( "offer[to_id]": @asset.user.id ), method: :post, class: "btn btn-success" %>
+            </div>
+        </div>
+     </div>
+   </div>
+</div>

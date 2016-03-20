@@ -1,0 +1,23 @@
+<%= form_for( Asset.new , :url => root_path, html: { :method => 'GET', class: "form-horizontal" } ) do |f| %>
+
+<div class="col-lg-3 item_search_bar">
+  <%= f.collection_select :category_id , Category.where(active: true) , :id , 
+    :name  , { :include_blank => "Category" },{ :class => "form-control home-filter", "data-live-search" => "true" }  %>
+</div>
+
+<div class="col-lg-3 item_search_bar">
+  <%= f.collection_select :sub_category_id , @sub_categories ||= [], :id , 
+    :name, { :include_blank => "Sub Category" } , { :class => "form-control", "data-live-search" => "true" } %>
+</div>
+
+<div class="col-lg-5 item_search_bar"> 
+  <%= f.text_area :tag_list, :size => "50x1", class: 'form-control' , placeholder: 'Tags'  %>
+</div>
+
+<div class="col-lg-1 item_search_bar" >
+  <span class="input-group-btn">
+      <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+  </span>
+</div>
+
+<% end %>

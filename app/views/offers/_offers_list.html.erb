@@ -6,9 +6,10 @@
   <thead>
     <tr>
       <th>ID</th>
-      <th> <%= user_text %> </th>
+      <!-- <th> <%= user_text %> </th> -->
       <th>Status</th>
       <th>Creation Date</th>
+      <th>Contact Email</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,12 +18,14 @@
     <% @offers.each do |offer| 
     	user_name = ( origin == 'received_offers' ? offer.from.full_name : offer.to.full_name )
     	show_link = ( origin == 'received_offers' ? show_received_offer_path(offer) : offer_path(offer) )
+      user = ( origin == 'received_offers' ? offer.from : offer.to )
     %>
       <tr>
         <td><%= offer.id %></td>
-        <td><%= user_name %></td>
+        <!-- <td><%= user_name %></td> -->
         <td><%= offer.state %></td>
         <td><%= offer.created_at %></td>
+        <td><%= contact_email( offer, user ) %></td>
 
         <td> <%= link_to icon("show"), show_link %> </td>
     
